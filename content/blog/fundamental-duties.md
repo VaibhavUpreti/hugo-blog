@@ -1,16 +1,15 @@
 ---
-title: "Fundamental Duties"
-date: 2022-06-12
-description: "Fundamental duties and their Implimentation duties"
-emoji: 📜
-featured_image: ashokan.png
-tags: [constitution, college, assignment]
+title: Fundamental Duties
+date: 2022-06-12 16:43:00
+tags: ["constitution", "assignment"]
+series: ["Markdown"]
+featured: false
 ---
+
 
 # TOPIC : **Fundamental Duties and their implimentation**
 
-Part IVA of the Indian Constitution deals with Fundamental Duties. As of now, there are 11 Fundamental duties.
-
+> Part IVA of the Indian Constitution deals with Fundamental Duties. As of now, there are 11 Fundamental duties.
 Source: 
 
 ![](https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg)

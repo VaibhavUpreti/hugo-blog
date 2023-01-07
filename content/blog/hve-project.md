@@ -8,6 +8,8 @@ tags: [hve, college, assignment]
 ---
 
 ![]({{ page.image | relative_url }})
+> Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.
+
 
 # TOPIC : **Fundamental Duties and their implimentation**
 

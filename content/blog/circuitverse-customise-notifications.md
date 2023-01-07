@@ -1,22 +1,12 @@
 ---
 title: Customising Notification Events in Rails
 date: 2022-12-13T21:34:36+08:00
-tags: ["hugo", "ladder", "Tutorial", "analytics"]
+tags: ["rails", "notifications", "gsoc", "circuitverse"]
 series: ["customise notification in rails"]
 featured: true
 ---
+## 🎯 GOAL: To give users option to customise notification events
 
-- - -
-
-# Table of contents
-1. [GOAL](#introduction)
-2. [JSON for preferences](#preferences)
-3. [Single Patch Request to Handle update requests](#subparagraph1)
-	1. [Using params in a rails patch request](#params-patch)
-4. [Production Migrations](#production)
-5. [Test](#rsepc-test)
-- - - 
-# 🎯 GOAL: To give users option to customise notification events
 With reference to issue [#3395](https://github.com/CircuitVerse/CircuitVerse/issues/3395)
 & PR [#3396](https://github.com/CircuitVerse/CircuitVerse/pull/3396) in [Circuitverse](https://circuitverse.org/)
 
@@ -29,7 +19,7 @@ There were two methods to make this work -
 
 I found the second approach better and implemented the same. It was most used by rails developers to implement such features.
 
-# 👤 Implementing the preferences in users model
+## 👤 Implementing the preferences in users model
 Setting default notification settings to be true for each user.(which they can edit later)
 
 ```ruby
@@ -64,10 +54,8 @@ class ForkNotification < Noticed::Base
 ```
 
 
-- - -
 
-
-# 🤹 Handling Updates
+## 🤹 Handling Updates
 
 All updates are handled by a single patch request which accpets three params
 
@@ -82,8 +70,8 @@ patch "/:id/notifications/edit", to: "users/noticed_notifications#edit", as: "ed
 ```
 
 
-
-`app/controllers/users/noticed_notifications_controller.rb`
+In 
+controllers/users/noticed_notifications_controller.rb
 
 
 ```ruby
@@ -92,9 +80,8 @@ def edit
   redirect_back(fallback_location: root_path)
 end
 ```
-- - -
 
-# 👨‍🔧 Refactoring the controller to a service object
+## 👨‍🔧 Refactoring the controller to a service object
 
 The edit method in the controller runs the following service-
 
@@ -157,12 +144,7 @@ http://localhost:3000/users/24/notifications/disable_new?type=star
 http://localhost:3000/users/24/notifications/disable_new?type=star&&action=true&&count=1
 ```
 
-
-
-
-- - -
-
-# 📦 Dealing with Production Database
+## 📦 Dealing with Production Database
 
 For Production we would have create a migration to set default preferences of the notification events to "true". 
 - For new users, the preferences are set to true on creation.
@@ -192,10 +174,7 @@ rake data:migrate
 ![Screenshot 2022-12-17 at 1 19 40 AM](https://user-images.githubusercontent.com/85568177/208177880-e72178ca-6586-4f08-af69-5e4c7d87274b.png)
 
 
-- - -
-
-
-# 📝 Test Cases
+## 📝 Test Cases
 
 
 

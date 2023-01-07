@@ -1,10 +1,13 @@
 ---
 title: Data Manipulation
 date: 2022-11-20T21:34:36+08:00
-tags: ["hugo", "ladder", "Tutorial", "configurations"]
+tags: ["python", "data-manipulation"]
 series: ["data manipulation in python"]
-featured: true
+featured: false
 ---
 
 
-meow idk
+
+{{< youtube 3XCVM3G3pns >}}
+
+<br>

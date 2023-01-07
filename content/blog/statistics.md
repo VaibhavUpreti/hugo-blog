@@ -1,9 +1,9 @@
 ---
 title: Stats Assignment 1
 date: 2022-11-03T21:34:36+08:00
-tags: ["college", "assignment", "statistics", "analytics"]
+tags: ["assignment", "statistics"]
 series: ["how to create your blog"]
-featured: true
+featured: false
 ---
 
 
