@@ -5,7 +5,8 @@ tags: ["rails", "notifications", "gsoc", "circuitverse"]
 series: ["customise notification in rails"]
 featured: true
 ---
-## 🎯 GOAL: To give users option to customise notification events
+## 🎯 GOAL
+Customise notification events
 
 With reference to issue [#3395](https://github.com/CircuitVerse/CircuitVerse/issues/3395)
 & PR [#3396](https://github.com/CircuitVerse/CircuitVerse/pull/3396) in [Circuitverse](https://circuitverse.org/)

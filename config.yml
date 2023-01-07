@@ -25,9 +25,9 @@ menu:
     - name: Links
       url: /links
       weight: 5
-    - name: Discuss
-      url: /discuss
-      weight: 6
+    #- name: Discuss
+    #  url: /discuss
+    #  weight: 6
 params:
   brand: 🥑
   avatarURL: /images/vu.png
@@ -43,17 +43,17 @@ params:
   #darkModeTheme: icy-dark-mode
   comments:
     giscus:
-      enable: true
-      repo: VaibhavUpreti/ai
-      repo_id: R_kgDOHyVOjg
+      enable: false
+      repo: VaibhavUpreti/hugo-blog
+      repo_id: R_kgDOIvDEcw
       category: Announcements
-      category_id: DIC_kwDOHyVOjs4CQsH7
+      category_id: DIC_kwDOIvDEc84CTdX7
       mapping: pathname
       position: top
       lang: en # pick a language from https://github.com/giscus/giscus/tree/main/locales
     utteranc:
       enable: false
-      repo: VaibhavUpreti/ai
+      repo: VaibhavUpreti/hugo-blog
       issueTerm: pathname
   analytics:
     google:
@@ -64,7 +64,7 @@ params:
    #   url: https://umami-ochre-nu.vercel.app/hugo-ladder.js
   guestbook:
     title: 💬 Discussion
-    description: Start a discussion on github. Leave a comment below. It could be anything –- question, appreciation, information, or even humor.
+    description: Start a discussion on github.
   social:
     - name: GitHub
       pre: >-
