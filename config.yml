@@ -29,7 +29,7 @@ menu:
     #  url: /discuss
     #  weight: 6
 params:
-  brand: 🥑
+  brand: "🥑"
   avatarURL: /images/vu.png
   author: Vaibhav Upreti
   authorDescription: oxfords not brogues
