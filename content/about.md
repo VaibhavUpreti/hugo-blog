@@ -43,3 +43,7 @@ keen to explore new technologies and work on different frameworks.  🧡 Data St
 
 ### Random Tweet
 {{< tweet user="NoContextBrits" id="1609235001303830530" >}}
+
+### My Study Playlist
+
+{{< spotify type="playlist" id="6YrY9RrXaZkhHxsFMJwj4a" width="100%" height="250" >}}
