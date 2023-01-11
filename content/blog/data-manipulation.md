@@ -8,6 +8,5 @@ featured: false
 
 
 
-{{< youtube 3XCVM3G3pns >}}
 
 <br>

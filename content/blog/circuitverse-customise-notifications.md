@@ -1,7 +1,7 @@
 ---
 title: Customising Notification Events in Rails
 date: 2022-12-13T21:34:36+08:00
-tags: ["rails", "notifications", "gsoc", "circuitverse"]
+tags: ["rails", "notifications", "pre-gsoc", "circuitverse"]
 series: ["customise notification in rails"]
 featured: true
 ---
