@@ -1,10 +1,10 @@
-baseURL: 'https://vaibhavupreti.tech'
+baseURL: 'https://vaibhavupreti.me'
 title: Vaibhav Upreti 
 theme: hugo-theme-ladder
 license: MIT
 licenselink: 'https://github.com/'
-description: 'Blogs and content'
-homepage: 'https://vaibhavupreti.tech'
+description: 'blog website'
+homepage: 'https://vaibhavupreti.me'
 defaultContentLanguage: 'en'
 googleAnalytics: G-1ER2PWSRX3
 paginate: 10
@@ -60,8 +60,8 @@ params:
       SiteVerificationTag: G-1ER2PWSRX3
    #  umami:
   #    enable: true
-   #   website_id: 2320eaa6-a90b-471c-b6ca-e79dadde8c4c
-   #   url: https://umami-ochre-nu.vercel.app/hugo-ladder.js
+   #   website_id: 
+   #   url: 
   guestbook:
     title: 💬 Discussion
     description: Start a discussion on github.
