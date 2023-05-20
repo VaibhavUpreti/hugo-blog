@@ -1,7 +1,7 @@
 ---
-title: Stats Assignment 1
+title: Probability Distribution with Python & JavaScript
 date: 2022-11-03T21:34:36+08:00
-tags: ["assignment", "statistics"]
+tags: ["statistics"]
 series: ["how to create your blog"]
 featured: false
 ---

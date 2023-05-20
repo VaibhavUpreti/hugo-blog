@@ -6,7 +6,6 @@ layout: "links"
 Some links that I find useful 
 ### Programming Languages 
 - [facingissuesonit](https://facingissuesonit.com/tutorials/) :  Facing Issues on IT - for java programming 
-- [JavaTpoint](https://www.javatpoint.com/) : Has pretty much every programming language and framework. I use this for my Uni. exams.
 
 ### Ruby on Rails
 - [RubyGems](https://rubygems.org/) : Find, install, and publish RubyGems.

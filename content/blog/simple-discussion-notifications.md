@@ -1,9 +1,9 @@
 ---
 title: Implementing Notifications in Simple Discussion Gem 
 date: 2023-1-10T21:34:36+08:00
-tags: ["rails", "notifications", "pre-gsoc", "circuitverse"]
+tags: ["notifications", "circuitverse"]
 series: ["circuitverse"]
-featured: true
+featured: false
 ---
 
 

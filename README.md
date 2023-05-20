@@ -1,1 +1,3 @@
-# blog-posts
+# Hugo Blog
+
+vaibhavupreti.me
