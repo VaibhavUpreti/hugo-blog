@@ -108,5 +108,5 @@ In my case, I managed to submit my final proposal 10 days prior to the deadline 
 
 The above process may appear difficult, but in my experience, it is actually quite simple and
 straightforward. Ultimately, contributing to open source software can have a transformative impact on 
-one's life. I followed these guidelines, helped to successfully qualify for Google Summer of 
-Code on my first attempt during my sophomore year.
+one's life. I followed these steps that helped to successfully qualify for Google Summer of 
+Code on my first attempt in my sophomore year.
