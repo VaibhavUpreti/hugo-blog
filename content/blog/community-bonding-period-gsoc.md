@@ -36,6 +36,8 @@ In addition to this, we had a discussion about the timeline of my project and th
 Initially, I had planned to prioritize the migration of assets to AWS S3. However, considering the resource-intensive nature of this task and the need for 
 data migration and validation, my mentor advised me to work on certain smaller tasks alongside it. Therefore, my initial focus during the coding period will be on the production migration and simultaneous completion of smaller tasks.
 
+ps: At the end of community bonding period I was invited to join the CircuitVerse organization.
+
 ## The best part !
 
 During the bonding period, the most memoriable experience was having an enriching conversation with Aboobacker and Vedant. They generously shared their experiences as a past GSoC contributor & their overall journey in the world of OSS(Open Source Software)
