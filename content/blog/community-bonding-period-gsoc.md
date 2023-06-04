@@ -29,7 +29,7 @@ Pull (fix: erb tags) - https://github.com/CircuitVerse/CircuitVerse/pull/3756
 
 
 One week prior to the start of coding period I had a detailed call with my mentor [Aboobacker](https://github.com/tachyons) and [Vedant](https://github.com/vedant-jain03),
-where he showed us the behind the scenes at CircuitVerse, the server config - general workflows, monitoring tools, basically we gave a comprehensive tour of the
+where he showed us the behind the scenes at CircuitVerse, the server config - general workflows, monitoring tools, basically he gave a comprehensive tour of the
 server infrastructure. 
 In addition to this, we had a discussion about the timeline of my project and the order of tasks. 
 
@@ -38,8 +38,7 @@ data migration and validation, my mentor advised me to work on certain smaller t
 
 ## The best part !
 
-During the bonding period, the most memoriable experience was having an enriching conversation with
-with Aboobacker and Vedant.They generously shared their experiences as a past GSoC contributor & their overall journey in the world of OSS(Open Source Software)
+During the bonding period, the most memoriable experience was having an enriching conversation with Aboobacker and Vedant. They generously shared their experiences as a past GSoC contributor & their overall journey in the world of OSS(Open Source Software)
 
 It was truely an inspiring moment, this was the time I got to know a lot about my mentor, I was quite inspired by his journey. We shared our aspirations and future goals related to open source, even shared anecdotes about college life including the challenges of meeting 75% attendance requirement in Indian colleges.
 
