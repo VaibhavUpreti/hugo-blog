@@ -41,27 +41,6 @@ params:
     enableMultiLang: false
   darkModeTheme: data-dark-mode
   #darkModeTheme: icy-dark-mode
-  comments:
-    giscus:
-      enable: false
-      repo: VaibhavUpreti/hugo-blog
-      repo_id: R_kgDOIvDEcw
-      category: Announcements
-      category_id: DIC_kwDOIvDEc84CTdX7
-      mapping: pathname
-      position: top
-      lang: en # pick a language from https://github.com/giscus/giscus/tree/main/locales
-    utteranc:
-      enable: false
-      repo: VaibhavUpreti/hugo-blog
-      issueTerm: pathname
-  analytics:
-    google:
-      SiteVerificationTag: G-1ER2PWSRX3
-   #  umami:
-  #    enable: true
-   #   website_id: 
-   #   url: 
   guestbook:
     title: 💬 Discussion
     description: Start a discussion on github.
