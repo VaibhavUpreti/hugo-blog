@@ -157,7 +157,6 @@ case $choice in
 	25)
 	  # Not present
 	  curl -o Lab25.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab25.java
-	  curl -o MultiThread.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/MultiThread.java
 	  ;;
 
 	26)
@@ -166,6 +165,7 @@ case $choice in
 
 	27)
 	  curl -o Lab27.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab27.java
+	  curl -o MultiThread.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/MultiThread.java
 	  ;;
 
 	28)
