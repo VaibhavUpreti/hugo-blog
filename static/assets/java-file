@@ -159,8 +159,12 @@ case $choice in
 	  curl -o Lab25.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab25.java
 	  ;;
 
-	26)
-	  curl -o Lab26.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab26.java
+	26a)
+	  curl -o Lab26a.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab26a.java
+	  ;;
+
+	26b)
+	  curl -o Lab26b.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab26b.java
 	  ;;
 
 	27)
