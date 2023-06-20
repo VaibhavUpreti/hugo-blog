@@ -7,7 +7,7 @@ featured: true
 ---
 
 
-Probably the best week of my GSoC journey so far. 
+Certainly the best week of my GSoC journey so far. 
 
 The changes that were merged this week will have a direct impact on of hundreds of thousands of users.
 This is the first time I have pulled off such a task. I am thankful to my mentor Aboobacker for guiding me through it.
