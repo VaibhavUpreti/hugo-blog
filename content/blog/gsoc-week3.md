@@ -6,10 +6,10 @@ series: ["gsoc"]
 featured: true
 ---
 
-
+{{< youtube VmpgOhdMA2g >}}
 Certainly the best week of my GSoC journey so far. 
 
-The changes that were merged this week will have a direct impact on of hundreds of thousands of users.
+The changes that were merged this week will have a direct impact on hundreds of thousands of users.
 This is the first time I have pulled off such a task. I am thankful to my mentor Aboobacker for guiding me through it.
 
 Despite numerous potential challenges, we effectively replicated attachments and seamlessly conducted data migrations,
