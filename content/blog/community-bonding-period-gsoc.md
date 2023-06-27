@@ -3,7 +3,7 @@ title: "Community Bonding Period at CircuitVerse.org"
 date: 2023-05-28
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 ## What is Community Bonding Period?

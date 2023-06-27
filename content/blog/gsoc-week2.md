@@ -3,7 +3,7 @@ title: "Hitchhiker's Guide to GSoC: Week 2, Don't Panic Edition"
 date: 2023-06-11
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an 

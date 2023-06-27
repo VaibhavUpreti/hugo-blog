@@ -3,7 +3,7 @@ title: "GSoC Week1: Migrating assets to AWS S3"
 date: 2023-06-04
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 # Week 1 (29 May - 4 June)

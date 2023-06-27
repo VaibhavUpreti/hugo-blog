@@ -3,7 +3,7 @@ title: "GSoC Chronicles: Week 3"
 date: 2023-06-18
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 {{< youtube VmpgOhdMA2g >}}
