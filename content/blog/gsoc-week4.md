@@ -1,5 +1,5 @@
 ---
-title: "Week 4"
+title: "GSoC Week 4: Distributed Tracing and Runbook Development"
 date: 2023-06-25
 tags: ["gsoc"]
 series: ["gsoc"]
