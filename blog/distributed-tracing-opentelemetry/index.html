@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Upreti</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.
+For additional information on OpenTelemetry, you can refer to my previous post.
+Furthermore, basics are adequately covered in the OTEL docs
+Without further ado, let&rsquo;s dive right into it.
+Installing Required Gems Add these gems to your Gemfile
+gem &#34;opentelemetry-sdk&#34; gem &#34;opentelemetry-exporter-otlp&#34; gem &#34;opentelemetry-instrumentation-all&#34; Once added bundle install">
+    <meta name="author" content="Vaibhav Upreti">
+    <link rel="canonical" href="https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ER2PWSRX3"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-1ER2PWSRX3', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+    <meta property="og:title" content="The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent" />
+<meta property="og:description" content="In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.
+For additional information on OpenTelemetry, you can refer to my previous post.
+Furthermore, basics are adequately covered in the OTEL docs
+Without further ado, let&rsquo;s dive right into it.
+Installing Required Gems Add these gems to your Gemfile
+gem &#34;opentelemetry-sdk&#34; gem &#34;opentelemetry-exporter-otlp&#34; gem &#34;opentelemetry-instrumentation-all&#34; Once added bundle install" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-25T00:00:00+00:00" />
+
+<meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week6/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week5/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week4/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent"/>
+<meta name="twitter:description" content="In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.
+For additional information on OpenTelemetry, you can refer to my previous post.
+Furthermore, basics are adequately covered in the OTEL docs
+Without further ado, let&rsquo;s dive right into it.
+Installing Required Gems Add these gems to your Gemfile
+gem &#34;opentelemetry-sdk&#34; gem &#34;opentelemetry-exporter-otlp&#34; gem &#34;opentelemetry-instrumentation-all&#34; Once added bundle install"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent",
+  "name": "The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent",
+  "description": "In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.\nFor additional information on OpenTelemetry, you can refer to my previous post.\nFurthermore, basics are adequately covered in the OTEL docs\nWithout further ado, let\u0026rsquo;s dive right into it.\nInstalling Required Gems Add these gems to your Gemfile\ngem \u0026#34;opentelemetry-sdk\u0026#34; gem \u0026#34;opentelemetry-exporter-otlp\u0026#34; gem \u0026#34;opentelemetry-instrumentation-all\u0026#34; Once added bundle install",
+  "keywords": [
+    "opentelemetry", "gsoc"
+  ],
+  "articleBody": "In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.\nFor additional information on OpenTelemetry, you can refer to my previous post.\nFurthermore, basics are adequately covered in the OTEL docs\nWithout further ado, let’s dive right into it.\nInstalling Required Gems Add these gems to your Gemfile\ngem \"opentelemetry-sdk\" gem \"opentelemetry-exporter-otlp\" gem \"opentelemetry-instrumentation-all\" Once added bundle install\nConfiguring the SDK Here is a sample configuration to get started with configuring the SDK. Initially, I have manually instrumented only the necessary parts. However, this process can also be replaced by using c.use_all for simplification.\nconfig/initializers/opentelemetry.rb\n# frozen_string_literal: true require \"opentelemetry/sdk\" require \"opentelemetry/exporter/otlp\" require \"opentelemetry/instrumentation/all\" OpenTelemetry::SDK.configure do |c| c.service_name = \"CircuitVerse\" # Service Name c.use \"OpenTelemetry::Instrumentation::Rails\" c.use \"OpenTelemetry::Instrumentation::ActiveSupport\" c.use \"OpenTelemetry::Instrumentation::Rack\" c.use \"OpenTelemetry::Instrumentation::ActionPack\" c.use \"OpenTelemetry::Instrumentation::ActiveJob\" c.use \"OpenTelemetry::Instrumentation::ActionView\" c.use \"OpenTelemetry::Instrumentation::ActiveRecord\" c.use \"OpenTelemetry::Instrumentation::AwsSdk\" c.use \"OpenTelemetry::Instrumentation::HTTP\" c.use \"OpenTelemetry::Instrumentation::ConcurrentRuby\" c.use \"OpenTelemetry::Instrumentation::Faraday\" c.use \"OpenTelemetry::Instrumentation::Net::HTTP\" c.use \"OpenTelemetry::Instrumentation::PG\" c.use \"OpenTelemetry::Instrumentation::Redis\" # or use use_all # c.use_all end Setting up Collector, Exporter Create a new directory named .otel (mkdir .otel) in the root of your rails app and then add following files there..\nExporting New Relic Api key export NEW_RELIC_API_KEY= .otel/docker-compose.yaml\nversion: \"3\" services: jaeger-all-in-one: image: jaegertracing/all-in-one:latest environment: - COLLECTOR_ZIPKIN_HOST_PORT=:9411 - COLLECTOR_OTLP_ENABLED=true ports: - \"16686:16686\" - \"14268\" - \"14250\" otel-collector: image: otel/opentelemetry-collector-contrib command: [\"--config=/etc/otel-collector-config.yaml\", \"${OTELCOL_ARGS}\"] volumes: - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro ports: - \"4318:4318\" - \"13133:13133\" # health check depends_on: - jaeger-all-in-one New Relic OpenTelemetry best practices:\nbest practices Exporting New Relic Api key We need to setup an environment variable (either using .env or adding to your shell profile) to pass the New Relic API key as header in order to be able to send traces to the New Relic endpoint.\nexport NEW_RELIC_API_KEY= Confirming New Relic Data Center If your data center for New Relic Agent is US then the configuration is same as below. Else you need the otlp endpoint to your data Center\nFor more info refer here\nEU endpoint\notlp: endpoint: https://otlp.eu01.nr-data.net:4318 headers: \"api-key\": $NEW_RELIC_API_KEY .otel/otel-collector-config.yaml\nextensions: health_check: {} receivers: otlp: protocols: http: processors: batch: transform: trace_statements: - context: span statements: - truncate_all(attributes, 4095) - truncate_all(resource.attributes, 4095) exporters: logging: jaeger: endpoint: jaeger-all-in-one:14250 tls: insecure: true otlp: endpoint: https://otlp.nr-data.net:4318 headers: \"api-key\": $NEW_RELIC_API_KEY service: pipelines: traces: receivers: [otlp] processors: [transform, batch] exporters: [logging, jaeger, otlp] Starting Server Following command will start 2 containers:\nJaeger (all-in-one): Jaeger’s all in one image that includes the exporter, collector and the Jaeger UI component. Opentelemetry collector: For exporting data to New Relic Agent. cd .otel docker compose up -d Results After starting the containers start your Rails app and make some basic requests and then traces will appear in both Jaeger and New Relic.\nThen Navigate to\nJaeger UI dashboard: http://localhost:16686\nNew Relic dashboard: https://one.newrelic.com/distributed-tracing\nin order to see traces.\nJaeger Dashboard:\nJaeger Single Trace\nNew Relic Dashboard:\n",
+  "wordCount" : "467",
+  "inLanguage": "en",
+  "datePublished": "2023-06-25T00:00:00Z",
+  "dateModified": "2023-06-25T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Vaibhav Upreti"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vaibhav Upreti",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaibhavupreti.github.io/hugo-blog/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" type="image/png" href="/images/avo.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avo.png">
+
+<link rel="manifest" href="/images/avo.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/hugo-blog/css/main.min.64bc8c4cb2304e84167c1583fa1b5de80f6d5adc95abed2e616dea0ea5680e01.css" integrity="sha256-ZLyMTLIwToQWfBWD&#43;htd6A9tWtyVq&#43;0uYW3qDqVoDgE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/hugo-blog/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/hugo-blog/js/highlight.min.min.c098d85b5396dec4707ea2cead1445b4dc2ff0fc56b8dbbd9049d0d1c50ad237.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/hugo-blog">
+            🥑
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/blog">Blog</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/tags">Tags</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/archives">Archive</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/about">About</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/links">Links</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/VaibhavUpreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://twitter.com/vaibhav__upreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent</h1>
+  </header>
+
+  <p>
+  <small>
+    June 25, 2023&nbsp;· 467 words&nbsp;· 3 min</small>
+  <small>
+    
+    ·
+    
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/opentelemetry/">opentelemetry</a>
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/gsoc/">gsoc</a>
+    
+  </small>
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#installing-required-gems">Installing Required Gems</a></li>
+    <li><a href="#configuring-the-sdk">Configuring the SDK</a></li>
+    <li><a href="#setting-up-collector-exporter">Setting up Collector, Exporter</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><p>In this blog post we will learn how to instrument a Rails app using OpenTelemetry and
+send traces to Jaeger and New Relic simultaneously.</p>
+<p>For additional information on OpenTelemetry, you can refer to my <a href="">previous post</a>.</p>
+<p>Furthermore, basics are adequately covered in the <a href="https://opentelemetry.io/docs/what-is-opentelemetry/">OTEL docs</a></p>
+<p>Without further ado, let&rsquo;s dive right into it.</p>
+<h2 id="installing-required-gems">Installing Required Gems</h2>
+<p>Add these gems to your <code>Gemfile</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>gem <span style="color:#e6db74">&#34;opentelemetry-sdk&#34;</span>
+</span></span><span style="display:flex;"><span>gem <span style="color:#e6db74">&#34;opentelemetry-exporter-otlp&#34;</span>
+</span></span><span style="display:flex;"><span>gem <span style="color:#e6db74">&#34;opentelemetry-instrumentation-all&#34;</span>
+</span></span></code></pre></div><p>Once added  <code>bundle install</code></p>
+<h2 id="configuring-the-sdk">Configuring the SDK</h2>
+<p>Here is a sample configuration to get started with configuring the SDK. Initially, I have manually instrumented only
+the necessary parts. However, this process can also be replaced by using <code>c.use_all</code> for simplification.</p>
+<p><code>config/initializers/opentelemetry.rb</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># frozen_string_literal: true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#34;opentelemetry/sdk&#34;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#34;opentelemetry/exporter/otlp&#34;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#34;opentelemetry/instrumentation/all&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">OpenTelemetry</span><span style="color:#f92672">::</span><span style="color:#66d9ef">SDK</span><span style="color:#f92672">.</span>configure <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>c<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>service_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CircuitVerse&#34;</span> <span style="color:#75715e"># Service Name</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::Rails&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ActiveSupport&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::Rack&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ActionPack&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ActiveJob&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ActionView&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ActiveRecord&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::AwsSdk&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::HTTP&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::ConcurrentRuby&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::Faraday&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::Net::HTTP&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::PG&#34;</span>
+</span></span><span style="display:flex;"><span>  c<span style="color:#f92672">.</span>use <span style="color:#e6db74">&#34;OpenTelemetry::Instrumentation::Redis&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># or use use_all</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># c.use_all</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="setting-up-collector-exporter">Setting up Collector, Exporter</h2>
+<p>Create a new directory named .otel (<code>mkdir .otel</code>) in the root of your rails app and then add following files there..</p>
+<h6 id="exporting-new-relic-api-key">Exporting New Relic Api key</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export NEW_RELIC_API_KEY<span style="color:#f92672">=</span>&lt;api-key-here&gt;
+</span></span></code></pre></div><p><code>.otel/docker-compose.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">jaeger-all-in-one</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">jaegertracing/all-in-one:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">COLLECTOR_ZIPKIN_HOST_PORT=:9411</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">COLLECTOR_OTLP_ENABLED=true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;16686:16686&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;14268&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;14250&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">otel-collector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">otel/opentelemetry-collector-contrib</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;--config=/etc/otel-collector-config.yaml&#34;</span>, <span style="color:#e6db74">&#34;${OTELCOL_ARGS}&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;4318:4318&#34;</span>        
+</span></span><span style="display:flex;"><span>	  - <span style="color:#e6db74">&#34;13133:13133&#34;</span>   <span style="color:#75715e"># health check</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">jaeger-all-in-one</span>
+</span></span></code></pre></div><p>New Relic OpenTelemetry best practices:</p>
+<ul>
+<li><a href="https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/best-practices/opentelemetry-best-practices-overview/">best practices</a></li>
+</ul>
+<h6 id="exporting-new-relic-api-key-1">Exporting New Relic Api key</h6>
+<p>We need to setup an environment variable (either using .env or adding to your shell profile) to pass the New Relic API key
+as header in order to be able to send traces to the New Relic endpoint.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export NEW_RELIC_API_KEY<span style="color:#f92672">=</span>&lt;api-key-here&gt;
+</span></span></code></pre></div><h6 id="confirming-new-relic-data-center">Confirming New Relic Data Center</h6>
+<p>If your data center for New Relic Agent is US then the configuration is same as below. Else you need the otlp endpoint to
+your data Center</p>
+<p>For more info refer <a href="https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/get-started/opentelemetry-set-up-your-app/#review-settings">here</a></p>
+<p>EU endpoint</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>otlp:
+</span></span><span style="display:flex;"><span>  endpoint: https://otlp.eu01.nr-data.net:4318
+</span></span><span style="display:flex;"><span>  headers:
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;api-key&#34;</span>: $NEW_RELIC_API_KEY
+</span></span></code></pre></div><p><code>.otel/otel-collector-config.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">extensions</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">health_check</span>: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">receivers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">otlp</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocols</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">processors</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">batch</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">transform</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">trace_statements</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">context</span>: <span style="color:#ae81ff">span</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">statements</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">truncate_all(attributes, 4095)</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">truncate_all(resource.attributes, 4095)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">exporters</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logging</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">jaeger</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">jaeger-all-in-one:14250</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">insecure</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">otlp</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">https://otlp.nr-data.net:4318</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">headers</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;api-key&#34;: </span><span style="color:#ae81ff">$NEW_RELIC_API_KEY</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pipelines</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">traces</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">receivers</span>: [<span style="color:#ae81ff">otlp]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">processors</span>: [<span style="color:#ae81ff">transform, batch]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">exporters</span>: [<span style="color:#ae81ff">logging, jaeger, otlp]</span>
+</span></span></code></pre></div><h6 id="starting-server">Starting Server</h6>
+<p>Following command will start 2 containers:</p>
+<ol>
+<li>Jaeger (all-in-one): Jaeger&rsquo;s all in one image that includes the exporter, collector and the Jaeger UI component.</li>
+<li>Opentelemetry collector: For exporting data to New Relic Agent.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd .otel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker compose up -d
+</span></span></code></pre></div><h6 id="results">Results</h6>
+<p>After starting the containers start your Rails app and make some basic requests and then traces will appear in both Jaeger
+and New Relic.</p>
+<p>Then Navigate to</p>
+<ul>
+<li>
+<p>Jaeger UI dashboard: <a href="http://localhost:16686">http://localhost:16686</a></p>
+</li>
+<li>
+<p>New Relic dashboard: <a href="https://one.newrelic.com/distributed-tracing">https://one.newrelic.com/distributed-tracing</a></p>
+</li>
+</ul>
+<p>in order to see traces.</p>
+<p><strong>Jaeger Dashboard:</strong></p>
+<p><img src="/images/jaeger-dashboard.png" alt="Jaeger-image"></p>
+<p><strong>Jaeger Single Trace</strong></p>
+<p><img src="/images/jaeger-trace-inspect.png" alt="jaeger-trace-inspect"></p>
+<p><img src="/images/jaeger-trace-inspect-deep.png" alt="jaeger-trace-inspect-deep"></p>
+<p><strong>New Relic Dashboard:</strong></p>
+<p><img src="/images/new-relic-otel-dashboard.png" alt="new-relic-otel-dashboard"></p>
+</section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week4/"><span>&larr;&nbsp;&nbsp;</span><span>GSoC Week 4: Distributed Tracing and Runbook Development</span></a>
+    
+    
+    <a class="next" href="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/"><span>GSoC Chronicles: Week 3</span><span>&nbsp;&nbsp;&rarr;</span></a>
+    
+  </div>
+  
+
+  
+
+<div class="related-resources">
+  <h3>Related Resources</h3>
+  
+    
+    
+    
+  
+    
+    
+    
+      <nav>
+        <ul>
+        
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week6/">GSoC Week 6</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week5/">GSoC Week 5 at CircuitVerse.org</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week4/">GSoC Week 4: Distributed Tracing and Runbook Development</a>
+            </li>
+          
+        
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week3/">GSoC Chronicles: Week 3</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week2/">Hitchhiker&#39;s Guide to GSoC: Week 2, Don&#39;t Panic Edition</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week1/">GSoC Week1: Migrating assets to AWS S3</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/community-bonding-period-gsoc/">Community Bonding Period at CircuitVerse.org</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/my-journey-to-gsoc-2023-with-circuitverse/">My Journey to GSoC 2023 with CircuitVerse.Org: How I Prepared and Applied for the Program</a>
+            </li>
+          
+        
+        </ul>
+      </nav>
+    
+  
+</div>
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://vaibhavupreti.github.io/hugo-blog/">Vaibhav Upreti</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</a>
+
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/hugo-blog/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

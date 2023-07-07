@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>opentelemetry on Vaibhav Upreti</title>
+    <link>https://vaibhavupreti.github.io/hugo-blog/tags/opentelemetry/</link>
+    <description>Recent content in opentelemetry on Vaibhav Upreti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 25 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://vaibhavupreti.github.io/hugo-blog/tags/opentelemetry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/</guid>
+      <description>In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.
+For additional information on OpenTelemetry, you can refer to my previous post.
+Furthermore, basics are adequately covered in the OTEL docs
+Without further ado, let&amp;rsquo;s dive right into it.
+Installing Required Gems Add these gems to your Gemfile
+gem &amp;#34;opentelemetry-sdk&amp;#34; gem &amp;#34;opentelemetry-exporter-otlp&amp;#34; gem &amp;#34;opentelemetry-instrumentation-all&amp;#34; Once added bundle install</description>
+    </item>
+    
+  </channel>
+</rss>

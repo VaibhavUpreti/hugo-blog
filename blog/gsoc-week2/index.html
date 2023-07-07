@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Upreti</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills.">
+    <meta name="author" content="Vaibhav Upreti">
+    <link rel="canonical" href="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ER2PWSRX3"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-1ER2PWSRX3', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+    <meta property="og:title" content="Hitchhiker&#39;s Guide to GSoC: Week 2, Don&#39;t Panic Edition" />
+<meta property="og:description" content="It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-06-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-06-11T00:00:00+00:00" />
+<meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week6/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week5/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week4/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/" /><meta property="og:see_also" content="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hitchhiker&#39;s Guide to GSoC: Week 2, Don&#39;t Panic Edition"/>
+<meta name="twitter:description" content="It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Hitchhiker's Guide to GSoC: Week 2, Don't Panic Edition",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hitchhiker's Guide to GSoC: Week 2, Don't Panic Edition",
+  "name": "Hitchhiker\u0027s Guide to GSoC: Week 2, Don\u0027t Panic Edition",
+  "description": "It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills.",
+  "keywords": [
+    "gsoc"
+  ],
+  "articleBody": "It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills.\nComing to the technical part, lets see…\nAWS S3 Migration Task The main plan for this task has been completed, and most of the work is done. Now it’s a waiting game for all assets to migrate to S3. Once the server migrations for asset migration are executed successfully, we will update the models, views and controllers to serve assets with ActiveStorage, for which I have all the changes available and am done with that work. I have also resolved some CI errors on the previous PR and now it is now ready to be merged.\nFinal PR - https://github.com/CircuitVerse/CircuitVerse/pull/3786\nCollaborating with Fellow Student GSoC is all about open source, collaboration and community Growth. During the first two weeks I helped Arnab, another GSoC'23 student at CircuitVerse, with the production configurations for imporving the Vue JS simulator simulator to the main repository. This involved reviewing Arnab’s code, trying to deploy his code on my personal CircuitVerse deployment, assisting with production deployment configurations, and providing valuable insights and inputs for the project.\nWorking on Other Smaller tasks along with AWS assets migration My GSoC mentor had recommended from the beginning that I work on some smaller tasks alongside the Migration task. Since the Migration task was quite lengthy and time consuming, I took his advise and worked on the following tasks in parallel:\nMonit Monit is an open source server monitoring tool, it conducts automatic maintenance and repair and can execute meaningful tasks. This week I worked with finalising the Monit Configs. for CircuitVerse, also setting up SMTP service to receive email alerts.\nAdded configurations for Monitoring following services:\nServer Resources Ping HTTP PORTs to check response Redis Postgresql Puma Sidekiq Caddy Webserver However, after some thinking I have decided to remove monitoring sidekiq and puma individually, instead monitor procodile instead. Since the puma and sidekiq threads are handled by this tool, it is redudant to monitor these individually.\nThis is almost ready, after review from mentor, we can possibly implement these changes in a pair programming changes on the server.\nMonit PR - https://github.com/CircuitVerse/infra/pull/1\nOpentelemetry I spent my time setting up New Relic Agent on my personal CircuitVerse deployment server, also adding configurations to export Opentelemetry data (traces and metrics), from my Rails app(CircuitVerse) to New Relic following their best practices guide.\nHere how we see the Traces that are exported from the OTEL collector(which is a docker container running on the server), I am quite impressed with the New Relic agent, its certainly a tough competition to Jaegar which leads in being the best open source tool for Distributed Tracing using OTLP(Opentelemetry protocol).\nMost probably this task will be implemented on the server after the resource intensive task of migrating assets to S3 has been completed, since it involves running and extra docker container.\nApart From GSoC Apart from GSoC, I spent my time studying for College exams and preparing for AWS Cloud certifications. I am targetting an associate level certificate, probably AWS Certified Solutions Architect, although AWS Certified Developer\talso seems tempting. I have been procrastinating this for months now, largely due to my habit of piling unncecassary work.\nOverall I need to get better at Time management and need to prioritize the right tasks earlier on. GSoC or in general working with open source software has certainly had a positive impact on my life, both professionally and personally.\n",
+  "wordCount" : "642",
+  "inLanguage": "en",
+  "datePublished": "2023-06-11T00:00:00Z",
+  "dateModified": "2023-06-11T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Vaibhav Upreti"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vaibhav Upreti",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaibhavupreti.github.io/hugo-blog/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" type="image/png" href="/images/avo.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avo.png">
+
+<link rel="manifest" href="/images/avo.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/hugo-blog/css/main.min.64bc8c4cb2304e84167c1583fa1b5de80f6d5adc95abed2e616dea0ea5680e01.css" integrity="sha256-ZLyMTLIwToQWfBWD&#43;htd6A9tWtyVq&#43;0uYW3qDqVoDgE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/hugo-blog/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/hugo-blog/js/highlight.min.min.c098d85b5396dec4707ea2cead1445b4dc2ff0fc56b8dbbd9049d0d1c50ad237.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/hugo-blog">
+            🥑
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/blog">Blog</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/tags">Tags</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/archives">Archive</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/about">About</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/links">Links</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/VaibhavUpreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://twitter.com/vaibhav__upreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>Hitchhiker&#39;s Guide to GSoC: Week 2, Don&#39;t Panic Edition</h1>
+  </header>
+
+  <p>
+  <small>
+    June 11, 2023&nbsp;· 642 words&nbsp;· 4 min</small>
+  <small>
+    
+    ·
+    
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/gsoc/">gsoc</a>
+    
+  </small>
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><p>It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an
+awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and
+find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my
+time management skills.</p>
+<p>Coming to the technical part, lets see&hellip;</p>
+<h4 id="aws-s3-migration-task">AWS S3 Migration Task</h4>
+<p>The main plan for this task has been completed, and most of the work is done. Now it&rsquo;s a waiting game for all assets to migrate to S3.
+Once the server migrations for asset migration are executed successfully, we will update the models, views and controllers to serve assets with ActiveStorage, for
+which I have all the changes available and am done with that work. I have also resolved some CI errors on the previous PR and now it is now ready to be merged.</p>
+<p>Final PR - <a href="https://github.com/CircuitVerse/CircuitVerse/pull/3786">https://github.com/CircuitVerse/CircuitVerse/pull/3786</a></p>
+<h4 id="collaborating-with-fellow-student">Collaborating with Fellow Student</h4>
+<p>GSoC is all about open source, collaboration and community Growth. During the first two weeks I helped Arnab, another GSoC'23 student at CircuitVerse, with the
+production configurations for imporving the Vue JS simulator simulator to the main repository. This involved reviewing Arnab&rsquo;s code, trying to deploy his code on
+my personal CircuitVerse deployment, assisting with production deployment configurations, and providing valuable insights and inputs for the project.</p>
+<h4 id="working-on-other-smaller-tasks-along-with-aws-assets-migration">Working on Other Smaller tasks along with AWS assets migration</h4>
+<p>My GSoC mentor had recommended from the beginning that I work on some smaller tasks alongside the Migration task. Since the Migration task was quite lengthy and time
+consuming, I took his advise and worked on the following tasks in parallel:</p>
+<h5 id="monit">Monit</h5>
+<p><a href="https://mmonit.com/monit/">Monit</a> is an open source server monitoring tool, it conducts automatic maintenance and repair and can execute meaningful tasks.
+This week I worked with finalising the Monit Configs. for CircuitVerse, also setting up SMTP service to receive email alerts.</p>
+<p>Added configurations for Monitoring following services:</p>
+<ul>
+<li>Server Resources</li>
+<li>Ping HTTP PORTs to check response</li>
+<li>Redis</li>
+<li>Postgresql</li>
+<li>Puma</li>
+<li>Sidekiq</li>
+<li>Caddy Webserver</li>
+</ul>
+<p>However, after some thinking I have decided to remove monitoring sidekiq and puma individually, instead monitor <a href="https://github.com/adamcooke/procodile">procodile</a> instead. Since the puma and sidekiq threads are handled by this tool, it is redudant to monitor these individually.</p>
+<p>This is almost ready, after review from mentor, we can possibly implement these changes in a pair programming changes on the server.</p>
+<p>Monit PR - <a href="https://github.com/CircuitVerse/infra/pull/1">https://github.com/CircuitVerse/infra/pull/1</a></p>
+<h5 id="opentelemetry">Opentelemetry</h5>
+<p>I spent my time setting up New Relic Agent on my personal CircuitVerse deployment server, also adding configurations to export Opentelemetry data (traces and metrics),
+from my Rails app(CircuitVerse) to New Relic following their <a href="https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/best-practices/opentelemetry-best-practices-overview/">best practices</a> guide.</p>
+<p>Here how we see the Traces that are exported from the OTEL collector(which is a docker container running on the server), I am quite impressed with the New Relic agent,
+its certainly a tough competition to Jaegar which leads in being the best open source tool for Distributed Tracing using OTLP(Opentelemetry protocol).</p>
+<p>Most probably this task will be implemented on the server after the resource intensive task of migrating assets to S3 has been completed, since it involves running and
+extra docker container.</p>
+<p><img src="/images/new-relic-otel-dashboard.png" alt="newrelic-dashboard"></p>
+<h4 id="apart-from-gsoc">Apart From GSoC</h4>
+<p>Apart from GSoC, I spent my time studying for College exams and preparing for AWS Cloud certifications. I am targetting an associate level certificate, probably
+AWS Certified Solutions Architect, although AWS Certified Developer	also seems tempting. I have been procrastinating this for months now, largely due to my habit of piling unncecassary work.</p>
+<p>Overall I need to get better at Time management and need to prioritize the right tasks earlier on. GSoC or in general working with open source software
+has certainly had a positive impact on my life, both professionally and personally.</p>
+</section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/"><span>&larr;&nbsp;&nbsp;</span><span>GSoC Chronicles: Week 3</span></a>
+    
+    
+    <a class="next" href="https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week1/"><span>GSoC Week1: Migrating assets to AWS S3</span><span>&nbsp;&nbsp;&rarr;</span></a>
+    
+  </div>
+  
+
+  
+
+<div class="related-resources">
+  <h3>Related Resources</h3>
+  
+    
+    
+    
+      <nav>
+        <ul>
+        
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week6/">GSoC Week 6</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week5/">GSoC Week 5 at CircuitVerse.org</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week4/">GSoC Week 4: Distributed Tracing and Runbook Development</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/distributed-tracing-opentelemetry/">The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week3/">GSoC Chronicles: Week 3</a>
+            </li>
+          
+        
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/gsoc-week1/">GSoC Week1: Migrating assets to AWS S3</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/community-bonding-period-gsoc/">Community Bonding Period at CircuitVerse.org</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/hugo-blog/blog/my-journey-to-gsoc-2023-with-circuitverse/">My Journey to GSoC 2023 with CircuitVerse.Org: How I Prepared and Applied for the Program</a>
+            </li>
+          
+        
+        </ul>
+      </nav>
+    
+  
+</div>
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://vaibhavupreti.github.io/hugo-blog/">Vaibhav Upreti</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</a>
+
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/hugo-blog/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

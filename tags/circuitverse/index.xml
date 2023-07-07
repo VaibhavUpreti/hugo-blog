@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>circuitverse on Vaibhav Upreti</title>
+    <link>https://vaibhavupreti.github.io/hugo-blog/tags/circuitverse/</link>
+    <description>Recent content in circuitverse on Vaibhav Upreti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 13 Dec 2022 21:34:36 +0800</lastBuildDate><atom:link href="https://vaibhavupreti.github.io/hugo-blog/tags/circuitverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Customising Notification Events in Rails</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/</link>
+      <pubDate>Tue, 13 Dec 2022 21:34:36 +0800</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/</guid>
+      <description>🎯 GOAL: Customise notification events
+With reference to issue #3395 &amp;amp; PR #3396 in Circuitverse
+There were two methods to make this work -
+To make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features.</description>
+    </item>
+    
+    <item>
+      <title>Implementing Notifications in Simple Discussion Gem</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/simple-discussion-notifications/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/simple-discussion-notifications/</guid>
+      <description>🎯 GOAL Adding Notification Events to Simple Discussion
+Adding two new notification events:
+Notifying Admins on a new thread post Notifications to users that have subscribed to the thread New Thread notification: This sends notification to all moderators about a new thread, so that they can respond to the query asap.
+For example in the following
+for all admin users, moderators so that they can resolve the query asap. eg: ref, both the admin user receive notification when user1 posted a new thread.</description>
+    </item>
+    
+  </channel>
+</rss>

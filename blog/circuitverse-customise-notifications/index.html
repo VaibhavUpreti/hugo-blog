@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Upreti</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@🎯 GOAL: Customise notification events
+With reference to issue #3395 &amp; PR #3396 in Circuitverse
+There were two methods to make this work -
+To make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features.">
+    <meta name="author" content="Vaibhav Upreti">
+    <link rel="canonical" href="https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ER2PWSRX3"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-1ER2PWSRX3', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+    <meta property="og:title" content="Customising Notification Events in Rails" />
+<meta property="og:description" content="🎯 GOAL: Customise notification events
+With reference to issue #3395 &amp; PR #3396 in Circuitverse
+There were two methods to make this work -
+To make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2022-12-13T21:34:36+08:00" />
+<meta property="article:modified_time" content="2022-12-13T21:34:36+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Customising Notification Events in Rails"/>
+<meta name="twitter:description" content="🎯 GOAL: Customise notification events
+With reference to issue #3395 &amp; PR #3396 in Circuitverse
+There were two methods to make this work -
+To make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Customising Notification Events in Rails",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Customising Notification Events in Rails",
+  "name": "Customising Notification Events in Rails",
+  "description": "🎯 GOAL: Customise notification events\nWith reference to issue #3395 \u0026amp; PR #3396 in Circuitverse\nThere were two methods to make this work -\nTo make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features.",
+  "keywords": [
+    "notifications", "circuitverse"
+  ],
+  "articleBody": "🎯 GOAL: Customise notification events\nWith reference to issue #3395 \u0026 PR #3396 in Circuitverse\nThere were two methods to make this work -\nTo make a preferences table with users as foreign key and notification events as attributes. To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table. I found the second approach better and implemented the same. It was most used by rails developers to implement such features.\n👤 Implementing the preferences in users model Setting default notification settings to be true for each user.(which they can edit later)\nstore :preferences, accessors: %i[star fork], coder: JSON after_commit :set_preferences, on: :create def set_preferences preferences[:star] = \"true\" preferences[:fork] = \"true\" end These preferences can be checked in each notification event.\nif: :fork_notifications? - Calls fork_notifications? and cancels delivery method if false is returned\nYou can use the if: and unless: options on your delivery methods to check the user’s preferences and skip processing if they have disabled that type of notification.\nclass ForkNotification \u003c Noticed::Base deliver_by :database, association: :noticed_notifications, if: :fork_notifications? def fork_notifications? project = params[:project] recipient = project.author return true if recipient.preferences[:fork] == \"true\" false end 🤹 Handling Updates All updates are handled by a single patch request which accpets three params\ntype : type of notification action: “true or false” count: number of fields config/routes.rb\npatch \"/:id/notifications/edit\", to: \"users/noticed_notifications#edit\", as: \"edit_notifications\" In controllers/users/noticed_notifications_controller.rb\ndef edit NotificationPreference.new(params).call redirect_back(fallback_location: root_path) end 👨‍🔧 Refactoring the controller to a service object The edit method in the controller runs the following service-\nBased on the params recieved in the patch request, the specific notification event preferences are updated.\nclass NotificationPreference \u003c ApplicationController def initialize(params) super() @recipient = User.find(params[:id]) @notific_type = params[:type] @active = params[:active] @count = params[:count] end def call if @count == \"1\" if @notific_type == \"star\" update_star else update_fork end else update_all end end private def update_fork if @active == \"true\" @recipient.update!(fork: \"false\") else @recipient.update!(fork: \"true\") end end def update_star if @active == \"true\" @recipient.update!(star: \"false\") else @recipient.update!(star: \"true\") end end def update_all if @active == \"true\" @recipient.update!(star: \"false\", fork: \"false\") else @recipient.update!(star: \"true\", fork: \"true\") end end end Example Route params-\nhttp://localhost:3000/users/24/notifications/disable_new?type=star http://localhost:3000/users/24/notifications/disable_new?type=star\u0026\u0026action=true\u0026\u0026count=1 📦 Dealing with Production Database For Production we would have create a migration to set default preferences of the notification events to “true”.\nFor new users, the preferences are set to true on creation. Creating migrations using rails-data-migrations Gem\nrails generate data_migration populate_preferences_to_users Updating all the default preferences to be true\nclass PopulatePreferencesToUsers \u003c ActiveRecord::DataMigration def up User.all.update!(star: \"true\", fork: \"true\") end end After running migration -\nrake data:migrate 📝 Test Cases ",
+  "wordCount" : "428",
+  "inLanguage": "en",
+  "datePublished": "2022-12-13T21:34:36+08:00",
+  "dateModified": "2022-12-13T21:34:36+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Vaibhav Upreti"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vaibhav Upreti",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaibhavupreti.github.io/hugo-blog/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" type="image/png" href="/images/avo.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avo.png">
+
+<link rel="manifest" href="/images/avo.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/hugo-blog/css/main.min.64bc8c4cb2304e84167c1583fa1b5de80f6d5adc95abed2e616dea0ea5680e01.css" integrity="sha256-ZLyMTLIwToQWfBWD&#43;htd6A9tWtyVq&#43;0uYW3qDqVoDgE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/hugo-blog/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/hugo-blog/js/highlight.min.min.c098d85b5396dec4707ea2cead1445b4dc2ff0fc56b8dbbd9049d0d1c50ad237.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/hugo-blog">
+            🥑
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/blog">Blog</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/tags">Tags</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/archives">Archive</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/about">About</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/links">Links</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/VaibhavUpreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://twitter.com/vaibhav__upreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>Customising Notification Events in Rails</h1>
+  </header>
+
+  <p>
+  <small>
+    December 13, 2022&nbsp;· 428 words&nbsp;· 3 min</small>
+  <small>
+    
+    ·
+    
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/notifications/">notifications</a>
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/circuitverse/">circuitverse</a>
+    
+  </small>
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-goal">🎯 GOAL:</a></li>
+    <li><a href="#-implementing-the-preferences-in-users-model">👤 Implementing the preferences in users model</a></li>
+    <li><a href="#-handling-updates">🤹 Handling Updates</a></li>
+    <li><a href="#-refactoring-the-controller-to-a-service-object">👨‍🔧 Refactoring the controller to a service object</a></li>
+    <li><a href="#-dealing-with-production-database">📦 Dealing with Production Database</a></li>
+    <li><a href="#-test-cases">📝 Test Cases</a></li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><h2 id="-goal">🎯 GOAL:</h2>
+<p>Customise notification events</p>
+<p>With reference to issue <a href="https://github.com/CircuitVerse/CircuitVerse/issues/3395">#3395</a>
+&amp; PR <a href="https://github.com/CircuitVerse/CircuitVerse/pull/3396">#3396</a> in <a href="https://circuitverse.org/">Circuitverse</a></p>
+<p><img src="https://user-images.githubusercontent.com/85568177/208179472-400da83b-f59c-4f9a-bf9b-4244fe55f6c4.jpg" alt="image"></p>
+<p>There were two methods to make this work -</p>
+<ol>
+<li>To make a preferences table with users as foreign key and notification events as attributes.</li>
+<li>To user rails ActiveRecord::Store and add a preferences hash/jsonb to users to table.</li>
+</ol>
+<p>I found the second approach better and implemented the same. It was most used by rails developers to implement such features.</p>
+<h2 id="-implementing-the-preferences-in-users-model">👤 Implementing the preferences in users model</h2>
+<p>Setting default notification settings to be true for each user.(which they can edit later)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>store <span style="color:#e6db74">:preferences</span>, <span style="color:#e6db74">accessors</span>: <span style="color:#f92672">%</span>i<span style="color:#f92672">[</span>star fork<span style="color:#f92672">]</span>, <span style="color:#e6db74">coder</span>: <span style="color:#66d9ef">JSON</span>
+</span></span><span style="display:flex;"><span>after_commit <span style="color:#e6db74">:set_preferences</span>, <span style="color:#e6db74">on</span>: <span style="color:#e6db74">:create</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_preferences</span>
+</span></span><span style="display:flex;"><span>    preferences<span style="color:#f92672">[</span><span style="color:#e6db74">:star</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>    preferences<span style="color:#f92672">[</span><span style="color:#e6db74">:fork</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>These preferences can be checked in each notification event.</p>
+<ul>
+<li>
+<p><code>if: :fork_notifications?</code> - Calls <code>fork_notifications?</code> and cancels delivery method if <code>false</code> is returned</p>
+</li>
+<li>
+<p>You can use the if: and unless: options on your delivery methods to check the user&rsquo;s preferences and skip processing if they have disabled that type of notification.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForkNotification</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">Noticed</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Base</span>
+</span></span><span style="display:flex;"><span>  deliver_by <span style="color:#e6db74">:database</span>, <span style="color:#e6db74">association</span>: <span style="color:#e6db74">:noticed_notifications</span>, <span style="color:#66d9ef">if</span>: <span style="color:#e6db74">:fork_notifications?</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fork_notifications?</span>
+</span></span><span style="display:flex;"><span>    project <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:project</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    recipient <span style="color:#f92672">=</span> project<span style="color:#f92672">.</span>author
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">if</span> recipient<span style="color:#f92672">.</span>preferences<span style="color:#f92672">[</span><span style="color:#e6db74">:fork</span><span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="-handling-updates">🤹 Handling Updates</h2>
+<p>All updates are handled by a single patch request which accpets three params</p>
+<ul>
+<li>type : type of notification</li>
+<li>action: “true or false”</li>
+<li>count: number of fields</li>
+</ul>
+<p><code>config/routes.rb</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>patch <span style="color:#e6db74">&#34;/:id/notifications/edit&#34;</span>, <span style="color:#e6db74">to</span>: <span style="color:#e6db74">&#34;users/noticed_notifications#edit&#34;</span>, <span style="color:#e6db74">as</span>: <span style="color:#e6db74">&#34;edit_notifications&#34;</span>
+</span></span></code></pre></div><p>In
+controllers/users/noticed_notifications_controller.rb</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">edit</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">NotificationPreference</span><span style="color:#f92672">.</span>new(params)<span style="color:#f92672">.</span>call
+</span></span><span style="display:flex;"><span>  redirect_back(<span style="color:#e6db74">fallback_location</span>: root_path)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="-refactoring-the-controller-to-a-service-object">👨‍🔧 Refactoring the controller to a service object</h2>
+<p>The edit method in the controller runs the following service-</p>
+<p>Based on the params recieved in the patch request, the specific notification event preferences are updated.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NotificationPreference</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">ApplicationController</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(params)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">super</span>()
+</span></span><span style="display:flex;"><span>   @recipient <span style="color:#f92672">=</span> <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>find(params<span style="color:#f92672">[</span><span style="color:#e6db74">:id</span><span style="color:#f92672">]</span>)
+</span></span><span style="display:flex;"><span>   @notific_type <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:type</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>   @active <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:active</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>   @count <span style="color:#f92672">=</span> params<span style="color:#f92672">[</span><span style="color:#e6db74">:count</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> @count <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> @notific_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;star&#34;</span>
+</span></span><span style="display:flex;"><span>       update_star
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>       update_fork
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>     update_all
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_fork</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> @active <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(fork: <span style="color:#e6db74">&#34;false&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(fork: <span style="color:#e6db74">&#34;true&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_star</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> @active <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(<span style="color:#e6db74">star</span>: <span style="color:#e6db74">&#34;false&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(<span style="color:#e6db74">star</span>: <span style="color:#e6db74">&#34;true&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_all</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> @active <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(<span style="color:#e6db74">star</span>: <span style="color:#e6db74">&#34;false&#34;</span>, fork: <span style="color:#e6db74">&#34;false&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>       @recipient<span style="color:#f92672">.</span>update!(<span style="color:#e6db74">star</span>: <span style="color:#e6db74">&#34;true&#34;</span>, fork: <span style="color:#e6db74">&#34;true&#34;</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Example Route params-</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#e6db74">http</span>:<span style="color:#e6db74">//</span><span style="color:#e6db74">localhost</span>:<span style="color:#ae81ff">3000</span><span style="color:#f92672">/</span>users<span style="color:#f92672">/</span><span style="color:#ae81ff">24</span><span style="color:#f92672">/</span>notifications<span style="color:#f92672">/</span>disable_new?type<span style="color:#f92672">=</span>star
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">http</span>:<span style="color:#e6db74">//</span><span style="color:#e6db74">localhost</span>:<span style="color:#ae81ff">3000</span><span style="color:#f92672">/</span>users<span style="color:#f92672">/</span><span style="color:#ae81ff">24</span><span style="color:#f92672">/</span>notifications<span style="color:#f92672">/</span>disable_new?type<span style="color:#f92672">=</span>star<span style="color:#f92672">&amp;&amp;</span>action<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span><span style="color:#f92672">&amp;&amp;</span>count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h2 id="-dealing-with-production-database">📦 Dealing with Production Database</h2>
+<p>For Production we would have create a migration to set default preferences of the notification events to &ldquo;true&rdquo;.</p>
+<ul>
+<li>For new users, the preferences are set to true on creation.</li>
+</ul>
+<p>Creating migrations using <code>rails-data-migrations</code> Gem</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rails generate data_migration populate_preferences_to_users
+</span></span></code></pre></div><p>Updating all the default preferences to be true</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PopulatePreferencesToUsers</span> <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">ActiveRecord</span><span style="color:#f92672">::</span><span style="color:#66d9ef">DataMigration</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">up</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">User</span><span style="color:#f92672">.</span>all<span style="color:#f92672">.</span>update!(<span style="color:#e6db74">star</span>: <span style="color:#e6db74">&#34;true&#34;</span>, fork: <span style="color:#e6db74">&#34;true&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>After running migration -</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>rake <span style="color:#e6db74">data</span>:migrate
+</span></span></code></pre></div><p><img src="https://user-images.githubusercontent.com/85568177/208177880-e72178ca-6586-4f08-af69-5e4c7d87274b.png" alt="Screenshot 2022-12-17 at 1 19 40 AM"></p>
+<h2 id="-test-cases">📝 Test Cases</h2>
+</section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="https://vaibhavupreti.github.io/hugo-blog/blog/my-journey-to-gsoc-2023-with-circuitverse/"><span>&larr;&nbsp;&nbsp;</span><span>My Journey to GSoC 2023 with CircuitVerse.Org: How I Prepared and Applied for the Program</span></a>
+    
+    
+    <a class="next" href="https://vaibhavupreti.github.io/hugo-blog/blog/statistics/"><span>Probability Distribution with Python &amp; JavaScript</span><span>&nbsp;&nbsp;&rarr;</span></a>
+    
+  </div>
+  
+
+  
+
+<div class="related-resources">
+  <h3>Related Resources</h3>
+  
+    
+    
+    
+  
+</div>
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://vaibhavupreti.github.io/hugo-blog/">Vaibhav Upreti</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</a>
+
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/hugo-blog/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

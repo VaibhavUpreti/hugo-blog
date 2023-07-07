@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>how to create your blog on Vaibhav Upreti</title>
+    <link>https://vaibhavupreti.github.io/hugo-blog/series/how-to-create-your-blog/</link>
+    <description>Recent content in how to create your blog on Vaibhav Upreti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 03 Nov 2022 21:34:36 +0800</lastBuildDate><atom:link href="https://vaibhavupreti.github.io/hugo-blog/series/how-to-create-your-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Probability Distribution with Python &amp; JavaScript</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/statistics/</link>
+      <pubDate>Thu, 03 Nov 2022 21:34:36 +0800</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/statistics/</guid>
+      <description>Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.
+Probability that the bulb drawn will work for more than 500 hrs is 0.2.
+Plot a probability distribution using python or scilab for getting k success in 20 trial
+If I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I&amp;rsquo;ll be successful?</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Upreti</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.
+Probability that the bulb drawn will work for more than 500 hrs is 0.2.
+Plot a probability distribution using python or scilab for getting k success in 20 trial
+If I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I&rsquo;ll be successful?">
+    <meta name="author" content="Vaibhav Upreti">
+    <link rel="canonical" href="https://vaibhavupreti.github.io/hugo-blog/blog/statistics/">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ER2PWSRX3"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-1ER2PWSRX3', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+    <meta property="og:title" content="Probability Distribution with Python &amp; JavaScript" />
+<meta property="og:description" content="Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.
+Probability that the bulb drawn will work for more than 500 hrs is 0.2.
+Plot a probability distribution using python or scilab for getting k success in 20 trial
+If I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I&rsquo;ll be successful?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vaibhavupreti.github.io/hugo-blog/blog/statistics/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2022-11-03T21:34:36+08:00" />
+<meta property="article:modified_time" content="2022-11-03T21:34:36+08:00" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Probability Distribution with Python &amp; JavaScript"/>
+<meta name="twitter:description" content="Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.
+Probability that the bulb drawn will work for more than 500 hrs is 0.2.
+Plot a probability distribution using python or scilab for getting k success in 20 trial
+If I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I&rsquo;ll be successful?"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Probability Distribution with Python \u0026 JavaScript",
+      "item": "https://vaibhavupreti.github.io/hugo-blog/blog/statistics/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Probability Distribution with Python \u0026 JavaScript",
+  "name": "Probability Distribution with Python \u0026 JavaScript",
+  "description": "Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.\nProbability that the bulb drawn will work for more than 500 hrs is 0.2.\nPlot a probability distribution using python or scilab for getting k success in 20 trial\nIf I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I\u0026rsquo;ll be successful?",
+  "keywords": [
+    "statistics"
+  ],
+  "articleBody": "Probability distribution curve in Python and JS Consider 20 independent repetitions of drawing a bulb from a lot.\nProbability that the bulb drawn will work for more than 500 hrs is 0.2.\nPlot a probability distribution using python or scilab for getting k success in 20 trial\nIf I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I’ll be successful?\nIf you succeed with probability 𝑝 independently of all previous attempts, then the probability you succeed at least once after 𝑘 tries is 1−(1−𝑝)𝑘 . To succeed at least once on average you need\n1−(1−𝑝)𝑘≥0.5 (1−𝑝)𝑘≤0.5 𝑘log2(1−𝑝)≤−1 𝑘≥−1log2(1−𝑝)\nOutput Bar Chart Line Chart Scatter Chart Code main.py\n# import matplotlib as mtt import matplotlib.pyplot as mt numEvents = int(input(\"Enter number of times bulb is drawn: \")) p = 0.2 time = 500 Event = {} # LOGIC # nCr * p ^k * (1-p)^n-k def nCr(n, r): return (factorial(n) / (factorial(r) * factorial(n - r))) def factorial(n): if n == 0: return 1 result = 1 for i in range(2, n+1): result = result * i return result n = numEvents r = 0 for k in range(numEvents+1): \" Graph --- prob of success at kth trial vs trials\" # z = (1-p)**(k) print(int(nCr(n, r))) ans = (int(nCr(n, r))) * p**(k) * (1-p)**(n-k) r = r + 1 Event[k] = ans x_axis = list(Event.keys()) y_axis = list(Event.values()) print(x_axis) print(y_axis) mt.bar(x_axis, y_axis) # mt.plot(x_axis, y_axis) mt.title(\"k success\") mt.xlabel(\"Number of Trials\") mt.ylabel(\"Probability\") mt.show() index.js const labelsBarChart = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]; const dataBarChart = { labels: labelsBarChart, datasets: [ { label: \"k success\", backgroundColor: \"hsl(252, 82.9%, 67.8%)\", borderColor: \"hsl(252, 82.9%, 67.8%)\", data: [0.011529215046068483, 0.05764607523034241, 0.13690942867206324, 0.20536414300809488, 0.21819940194610077, 0.17455952155688062, 0.1090997009730504, 0.05454985048652519, 0.022160876760150862, 0.007386958920050287, 0.0020314137030138287, 0.0004616849325031429, 8.656592484433929e-05, 1.3317834591436814e-05, 1.6647293239296018e-06 , 1.6647293239296019e-07, 1.3005697843200014e-08, 7.65041049600001e-10, 3.187671040000004e-11, 8.388608000000009e-13, 1.0485760000000012e-14], }, ], }; const configBarChart = { label: \"label\", type: \"bar\", data: dataBarChart, options: {}, }; const configLineChart = { label: \"label\", type: \"line\", data: dataBarChart, options: {}, }; const configRadarChart = { label: \"label\", type: \"scatter\", data: dataBarChart, options: {}, }; var chartBar = new Chart( document.getElementById(\"chartBar\"), configBarChart ); var chartLine = new Chart( document.getElementById(\"chartLine\"), configLineChart ); var chartBar = new Chart( document.getElementById(\"chartRadar\"), configRadarChart ); ",
+  "wordCount" : "391",
+  "inLanguage": "en",
+  "datePublished": "2022-11-03T21:34:36+08:00",
+  "dateModified": "2022-11-03T21:34:36+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Vaibhav Upreti"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaibhavupreti.github.io/hugo-blog/blog/statistics/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vaibhav Upreti",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaibhavupreti.github.io/hugo-blog/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" type="image/png" href="/images/avo.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avo.png">
+
+<link rel="manifest" href="/images/avo.png">
+
+    
+    
+    
+    <link rel="stylesheet" href="/hugo-blog/css/main.min.64bc8c4cb2304e84167c1583fa1b5de80f6d5adc95abed2e616dea0ea5680e01.css" integrity="sha256-ZLyMTLIwToQWfBWD&#43;htd6A9tWtyVq&#43;0uYW3qDqVoDgE=" crossorigin="anonymous" media="screen" />
+    
+
+
+    
+    <link rel="stylesheet" href="/hugo-blog/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/hugo-blog/js/highlight.min.min.c098d85b5396dec4707ea2cead1445b4dc2ff0fc56b8dbbd9049d0d1c50ad237.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/hugo-blog">
+            🥑
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/blog">Blog</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/tags">Tags</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/archives">Archive</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/about">About</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/hugo-blog/links">Links</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/VaibhavUpreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://twitter.com/vaibhav__upreti"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>Probability Distribution with Python &amp; JavaScript</h1>
+  </header>
+
+  <p>
+  <small>
+    November 3, 2022&nbsp;· 391 words&nbsp;· 2 min</small>
+  <small>
+    
+    ·
+    
+    
+    <a href="https://vaibhavupreti.github.io/hugo-blog/tags/statistics/">statistics</a>
+    
+  </small>
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#output">Output</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#code">Code</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><h1 id="probability-distribution-curve-in-python-and-js"><strong>Probability distribution curve in Python and JS</strong></h1>
+<p>Consider 20 independent repetitions of drawing a bulb from a lot.</p>
+<p>Probability that the bulb drawn will work for more than 500 hrs is 0.2.</p>
+<p>Plot a probability distribution using python or scilab for getting k success in 20 trial</p>
+<p>If I do something that has a constant probability of success - how many times do I need to do it to ensure that, on average, I&rsquo;ll be successful?</p>
+<p>If you succeed with probability 𝑝 independently of all previous attempts, then the probability you succeed at least once after 𝑘 tries is 1−(1−𝑝)𝑘 . To succeed at least once on average you need</p>
+<p>1−(1−𝑝)𝑘≥0.5 (1−𝑝)𝑘≤0.5 𝑘log2(1−𝑝)≤−1 𝑘≥−1log2(1−𝑝)</p>
+<h2 id="output">Output</h2>
+<h4 id="bar-chart">Bar Chart</h4>
+<p><img src="https://user-images.githubusercontent.com/85568177/202895560-5660903b-6ec2-4a0e-81fd-034b8b9fbe90.jpg" alt=""></p>
+<h4 id="line-chart">Line Chart</h4>
+<p><img src="https://user-images.githubusercontent.com/85568177/202895563-35887f2c-176d-47b0-ab83-8490063b55c7.jpg" alt=""></p>
+<h4 id="scatter-chart">Scatter Chart</h4>
+<p><img src="https://user-images.githubusercontent.com/85568177/202895565-26815ee3-9072-4f21-ae11-c348380b2e16.jpg" alt=""></p>
+<h2 id="code">Code</h2>
+<p>main.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#75715e"># import matplotlib as mtt</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> mt
+</span></span><span style="display:flex;"><span>    numEvents <span style="color:#f92672">=</span> int(input(<span style="color:#e6db74">&#34;Enter number of times bulb is drawn: &#34;</span>))
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>
+</span></span><span style="display:flex;"><span>    time <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>    Event <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># LOGIC</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># nCr * p ^k  * (1-p)^n-k</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">nCr</span>(n, r):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (factorial(n) <span style="color:#f92672">/</span> (factorial(r) <span style="color:#f92672">*</span> factorial(n <span style="color:#f92672">-</span> r)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">factorial</span>(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> result <span style="color:#f92672">*</span> i
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> numEvents
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(numEvents<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; Graph --- prob of success at kth trial vs trials&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># z = (1-p)**(k)</span>
+</span></span><span style="display:flex;"><span>        print(int(nCr(n, r)))
+</span></span><span style="display:flex;"><span>        ans <span style="color:#f92672">=</span> (int(nCr(n, r))) <span style="color:#f92672">*</span> p<span style="color:#f92672">**</span>(k) <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p)<span style="color:#f92672">**</span>(n<span style="color:#f92672">-</span>k)
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">=</span> r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        Event[k] <span style="color:#f92672">=</span> ans
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x_axis <span style="color:#f92672">=</span> list(Event<span style="color:#f92672">.</span>keys())
+</span></span><span style="display:flex;"><span>    y_axis <span style="color:#f92672">=</span> list(Event<span style="color:#f92672">.</span>values())
+</span></span><span style="display:flex;"><span>    print(x_axis)
+</span></span><span style="display:flex;"><span>    print(y_axis)
+</span></span><span style="display:flex;"><span>    mt<span style="color:#f92672">.</span>bar(x_axis, y_axis)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># mt.plot(x_axis, y_axis)</span>
+</span></span><span style="display:flex;"><span>    mt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;k success&#34;</span>)
+</span></span><span style="display:flex;"><span>    mt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Number of Trials&#34;</span>)
+</span></span><span style="display:flex;"><span>    mt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>    mt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><h4 id="indexjs">index.js</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">labelsBarChart</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataBarChart</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">labels</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">labelsBarChart</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">datasets</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;k success&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">backgroundColor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;hsl(252, 82.9%, 67.8%)&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">borderColor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;hsl(252, 82.9%, 67.8%)&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.011529215046068483</span>, <span style="color:#ae81ff">0.05764607523034241</span>, <span style="color:#ae81ff">0.13690942867206324</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0.20536414300809488</span>, <span style="color:#ae81ff">0.21819940194610077</span>, <span style="color:#ae81ff">0.17455952155688062</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">0.1090997009730504</span>, <span style="color:#ae81ff">0.05454985048652519</span>, <span style="color:#ae81ff">0.022160876760150862</span>,
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">0.007386958920050287</span>, <span style="color:#ae81ff">0.0020314137030138287</span>, <span style="color:#ae81ff">0.0004616849325031429</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">8.656592484433929</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span>, <span style="color:#ae81ff">1.3317834591436814</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span>, <span style="color:#ae81ff">1.6647293239296018</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span>
+</span></span><span style="display:flex;"><span>            , <span style="color:#ae81ff">1.6647293239296019</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">07</span>, <span style="color:#ae81ff">1.3005697843200014</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span>, <span style="color:#ae81ff">7.65041049600001</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#ae81ff">3.187671040000004</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">8.388608000000009</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">1.0485760000000012</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">14</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">configBarChart</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bar&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">dataBarChart</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {},
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">configLineChart</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;line&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">dataBarChart</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {},
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">configRadarChart</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">label</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;label&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;scatter&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">dataBarChart</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {},
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chartBar</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;chartBar&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">configBarChart</span>
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chartLine</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;chartLine&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">configLineChart</span>
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chartBar</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chart</span>(
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;chartRadar&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">configRadarChart</span>
+</span></span><span style="display:flex;"><span>  );
+</span></span></code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="https://vaibhavupreti.github.io/hugo-blog/blog/circuitverse-customise-notifications/"><span>&larr;&nbsp;&nbsp;</span><span>Customising Notification Events in Rails</span></a>
+    
+    
+    <a class="next" href="https://vaibhavupreti.github.io/hugo-blog/blog/simple-discussion-notifications/"><span>Implementing Notifications in Simple Discussion Gem</span><span>&nbsp;&nbsp;&rarr;</span></a>
+    
+  </div>
+  
+
+  
+
+<div class="related-resources">
+  <h3>Related Resources</h3>
+  
+    
+    
+    
+  
+</div>
+
+
+  
+  
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2023 <a href="https://vaibhavupreti.github.io/hugo-blog/">Vaibhav Upreti</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</a>
+
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/hugo-blog/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

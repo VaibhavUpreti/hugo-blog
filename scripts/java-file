@@ -1,0 +1,202 @@
+#!/bin/bash
+
+echo "1. Introduction to Object Oriented Programming. Discuss features of OOP and Java along with the Compilation and Execution Process.
+2. Write a program to print 'Hello World' in Java.
+3. Write a program to perform the addition of two numbers using Command Line arguments.
+4. Write a program to perform the addition of two numbers using Scanner Class.
+5. Generate a random number up to 100 and print whether it is prime or not.
+6a. Design a program to generate the first 10 terms of the Fibonacci series.
+6b. Find the factorial of a given number using Recursion.
+7. Write a program in java to Perform basic arithmetic calculations using a switch case.
+8. Write a program to implement different types of variables in Java (local, static, and instance variables).
+9. Write a program to find the average and sum of the array of N numbers entered by the user.
+10. Write a program in java to perform any type of sorting of N numbers.
+11. Write a program to perform the addition of two matrices in Java.
+12. Write a program to create a class to find out the Area and perimeter of a rectangle.
+13. Write a program in java to perform constructor overloading.
+14. Write a program in java to perform single-level inheritance.
+15. Write a program in java to perform Multilevel inheritance.
+16. Write a program in java to perform Hierarchical Inheritance.
+17a Write a program in Java to implement static polymorphism (Method Overloading).
+17b Write a program in Java to implement dynamic polymorphism (Method overriding).
+18. Write a program to demonstrate the use of the final keyword with data member, function, and class.
+19. Write a program in Java to implement multiple inheritance through interfaces.
+20. Write a program to show the use of the 'Abstract' Class in Java.
+21. Write a program to show the use of the 'static' keyword in Java.
+22. Demonstrate the use of keywords try, catch, finally, throw, and throws.
+23. Write a program to show the use of the 'Wrapper' Class in Java.
+24. Design a class that performs String operations (Equal, Reverse the string, change case).
+25. Design a program to demonstrate multithreading using Thread Class.
+26a Write a program to print a table of 2 numbers without using synchronization using multithreading.
+26b Write a program to print a table of 2 numbers using synchronization using multithreading.
+27. Write a program to create a customized package in Java.
+28. Design a program to create a basic calculator using Applet and Event Handling.
+29. Design a program to read a text file and after printing that on-screen write the content to another text file.
+30. Design a program to count the number of words, characters, and vowels in a text file.
+31. Design a program to create a simple chat application using Socket programming.
+32. Write a program to perform operations such as insertion, deletion, updation, and retrieval of records on the Employee database using JDBC."
+
+
+# Read user input
+read -p "Enter your choice: " choice
+
+# Perform the desired action based on the user's choice
+case $choice in
+    1)
+	  # Not present
+        curl -o 1.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/12.java
+        ;;
+    2)
+        curl -o 2.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/two.java 
+        ;;
+    3)
+        curl -o 3.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/three.java
+		;;
+
+	4)
+        curl -o 4.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/four.java
+        ;;
+    5)
+        # Not present
+        curl -o 5.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/5.java
+        ;;
+
+	6a)
+		curl -o 6a.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/six-a.java
+	  ;;
+
+	6b)
+	  curl -o 6b.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/six-a.java
+
+	  ;;
+
+	7)
+	  curl -o 7.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/seven.java
+	  ;;
+
+	8)
+	  curl -o 8.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/eight.java
+	  ;;
+
+	9)
+	  curl -o 9.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/9.java
+	  ;;
+
+	10)
+	  curl -o 10.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/10.java
+	  ;;
+
+	11)
+	  curl -o 11.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/11.java
+	  ;;
+
+	12)
+	  curl -o 12.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/12.java
+	  ;;
+
+	13)
+	  curl -o 13.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/13.java
+	  ;;
+
+	14)
+	  curl -o 10.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/10.java
+	  ;;
+
+	15)
+	  curl -o 15.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/15.java
+	  ;;
+
+	16)
+	  curl -o 16.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/16.java
+	  ;;
+
+	17a)
+	  curl -o 17a.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/17a.java
+	  ;;
+
+	17b)
+	  curl -o 17b.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/17b.java
+	  ;;
+
+	18a)
+	  curl -o 18a.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/18a.java
+	  ;;
+
+	18b)
+	  curl -o 18b.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/18b.java
+	  ;;
+
+	18c)
+	  curl -o 18c.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/18c.java
+	  ;;
+
+	19)
+	  curl -o 19.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/19.java
+	  ;;
+
+	20)
+	  curl -o 20.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/20.java
+	  ;;
+
+	21)
+	  curl -o 21.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/21.java
+	  ;;
+
+	22)
+	  curl -o 22.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/22.java
+	  ;;
+
+	23)
+	  curl -o 23.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/23.java
+	  ;;
+
+	24)
+	  curl -o 24.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/24.java
+	  ;;
+
+	25)
+	  # Not present
+	  curl -o Lab25.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab25.java
+	  ;;
+
+	26a)
+	  curl -o Lab26a.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab26a.java
+	  ;;
+
+	26b)
+	  curl -o Lab26b.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab26b.java
+	  ;;
+
+	27)
+	  curl -o Lab27.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab27.java
+	  curl -o MultiThread.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/MultiThread.java
+	  ;;
+
+	28)
+	  # Not present
+	  curl -o Lab28.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab28.java
+	  ;;
+
+	29)
+	  curl -o Lab29.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab29.java
+	  ;;
+
+	30)
+	  curl -o Lab30.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/Lab30.java
+	  ;;
+
+	31)
+	  # Client Server
+	  curl -o ChatClient.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/ChatClient.java
+	  curl -o ChatServer.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/ChatServer.java
+	  ;;
+
+	32)
+	  curl -o 32.java https://raw.githubusercontent.com/VaibhavUpreti/programming/main/java/32.java
+	  ;;
+
+    *)
+        echo "Invalid choice"
+        ;;
+esac
+

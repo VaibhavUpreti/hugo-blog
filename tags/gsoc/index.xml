@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gsoc on Vaibhav Upreti</title>
+    <link>https://vaibhavupreti.github.io/hugo-blog/tags/gsoc/</link>
+    <description>Recent content in gsoc on Vaibhav Upreti</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://vaibhavupreti.github.io/hugo-blog/tags/gsoc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GSoC Week 6</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week6/</link>
+      <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week6/</guid>
+      <description>GSoC Week 6 </description>
+    </item>
+    
+    <item>
+      <title>GSoC Week 5 at CircuitVerse.org</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week5/</link>
+      <pubDate>Sun, 02 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week5/</guid>
+      <description>Week 5 (26 June,23 - 2 July,23) During week 5, I devoted most my time to Mrsk &amp;amp; working on serving assets using ActiveStorage.
+Mrsk Mrsk is a tool that allows you to deploy docker containers to bare metal servers, (or cloud VMs) using docker with zero downtime. Mrsk is still in aplha stage but is now in production at 37signals.
+Before my GSoC coding period, I managed to explored this tool and deployed CircuitVerse using mrsk to a fresh EC2 instance.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Week 4: Distributed Tracing and Runbook Development</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week4/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week4/</guid>
+      <description>OpenTelemetry For week 4 I spent most of my time working with Opentelemetry configuration for CircuitVerse.
+OpenTelemetry is an observability framework and toolkit designed to create and manage telemetry data such as
+traces metrics and logs OpenTelemetry can be used with a variety of backends, including open source tools like Jaeger and Prometheus, as well as commercial offerings like New Relic OpenTelemetry.
+For Instrumentating a Rails app we would have to use opentelemetry-ruby sdk to create telemetry data.</description>
+    </item>
+    
+    <item>
+      <title>The Ultimate Guide to Distributed Tracing: Monitor your Rails app using Opentelemetry, Jaeger and New Relic Agent</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/</link>
+      <pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/distributed-tracing-opentelemetry/</guid>
+      <description>In this blog post we will learn how to instrument a Rails app using OpenTelemetry and send traces to Jaeger and New Relic simultaneously.
+For additional information on OpenTelemetry, you can refer to my previous post.
+Furthermore, basics are adequately covered in the OTEL docs
+Without further ado, let&amp;rsquo;s dive right into it.
+Installing Required Gems Add these gems to your Gemfile
+gem &amp;#34;opentelemetry-sdk&amp;#34; gem &amp;#34;opentelemetry-exporter-otlp&amp;#34; gem &amp;#34;opentelemetry-instrumentation-all&amp;#34; Once added bundle install</description>
+    </item>
+    
+    <item>
+      <title>GSoC Chronicles: Week 3</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week3/</guid>
+      <description>Certainly the best week of my GSoC journey so far.
+The changes that were merged this week will have a direct impact on hundreds of thousands of users. This is the first time I have pulled off such a task. I am thankful to my mentor Aboobacker for guiding me through it.
+Despite numerous potential challenges, we effectively replicated attachments and seamlessly conducted data migrations, ensuring seamless transfer of previous data without any disruption or downtime.</description>
+    </item>
+    
+    <item>
+      <title>Hitchhiker&#39;s Guide to GSoC: Week 2, Don&#39;t Panic Edition</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/</link>
+      <pubDate>Sun, 11 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week2/</guid>
+      <description>It was an exhausting week filled with challenges, unexpected workload from college was overwhelming, leaving me with an awful lot of work to handle. On top of that, I had to juggle with my extracurricular commitments as well. It was a constant struggle to stay on top of everything and find a balance between my various responsibilities. I did manage to make good progress on my GSoC tasks, although I acknowledge that I still need to improve my time management skills.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Week1: Migrating assets to AWS S3</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week1/</link>
+      <pubDate>Sun, 04 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/gsoc-week1/</guid>
+      <description>Week 1 (29 May - 4 June) The Community bonding period was an incredible and refershing experience overall. I was excited and eager to start coding after the mentor meets. As a result I started coding few days before the actual period. This additional time was beneficial since the first task involves important production migration. Such tasks are not very straightforward, so the extra time allowed me thoroughly validate and test each part of my code.</description>
+    </item>
+    
+    <item>
+      <title>Community Bonding Period at CircuitVerse.org</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/community-bonding-period-gsoc/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/community-bonding-period-gsoc/</guid>
+      <description>What is Community Bonding Period? The Community Bonding Period typically spans several weeks leading up to the official start of coding in GSoC. It allows students to connect with their mentors and the open-source community. During this time, participants engage in various activities to familiarize themselves with the organization&amp;rsquo;s codebase, development processes, and community culture.
+How did I spend it? During the initial days following the announcement of the GSoC results, contributors were assigned separate private channels for their respective projects.</description>
+    </item>
+    
+    <item>
+      <title>My Journey to GSoC 2023 with CircuitVerse.Org: How I Prepared and Applied for the Program</title>
+      <link>https://vaibhavupreti.github.io/hugo-blog/blog/my-journey-to-gsoc-2023-with-circuitverse/</link>
+      <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://vaibhavupreti.github.io/hugo-blog/blog/my-journey-to-gsoc-2023-with-circuitverse/</guid>
+      <description>What is Google Summer of Code? Google Summer of Code is a global, online program focused on bringing new contributors into open source software development. GSoC contributors work with an open source organization on a 12+ week programming project under the guidance of mentors.
+Earlier this program used to be student only, but that barrier is no more and anyone can apply to GSoC. Read more about the eligibilty criteria</description>
+    </item>
+    
+  </channel>
+</rss>
