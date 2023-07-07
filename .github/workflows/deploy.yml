@@ -34,5 +34,7 @@ jobs:
           cp -R public/* ${GITHUB_WORKSPACE}/built-site/
           cd ${GITHUB_WORKSPACE}/built-site
           git add .
-          git commit -m 'Updated site'
+          git config user.name 'vaibhavupreti'
+          git config user.email 'vaibhav.upreti16@gmail.com'
+          git commit -m 'chore: deploy to production'
           git push          
