@@ -1,3 +1,3 @@
 # Hugo Blog
 
-vaibhavupreti.me
+[vaibhavupreti.github.io/hugo-blog](https://vaibhavupreti.github.io/hugo-blog/)
