@@ -1,12 +1,13 @@
-baseURL: 'https://vaibhavupreti.github.io/hugo-blog'
+baseURL: 'https://vaibhavupreti.me'
 title: Vaibhav Upreti 
 theme: hugo-theme-ladder
 license: MIT
 licenselink: 'https://github.com/vaibhavupreti'
 description: 'blog website'
-homepage: 'https://vaibhavupreti.github.io/hugo-blog'
+homepage: 'https://vaibhavupreti.me'
 defaultContentLanguage: 'en'
 googleAnalytics: G-1ER2PWSRX3
+canonifyURLs: true
 paginate: 10
 menu:
   main:
