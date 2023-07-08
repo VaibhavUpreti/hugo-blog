@@ -5,7 +5,7 @@ tags: ["gsoc"]
 series: ["gsoc"]
 featured: false
 ---
-![gsoc-cover](/images/gsoc_cover.png)
+![gsoc-cover](/images/gsoc.png)
 
 It's hard to believe that it has already been six weeks since I began my journey as a GSoC student at [CircuitVerse.org](https://circuitverse.org/).
 Time flies by quickly!
