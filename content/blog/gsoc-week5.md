@@ -3,7 +3,7 @@ title: "GSoC Week 5 at CircuitVerse.org"
 date: 2023-07-02
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false
 ---
 
 
