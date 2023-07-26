@@ -9,7 +9,6 @@ I'm currently working with [CircuitVerse](https://circuitverse.org/) this summer
 
 If you’d like to know about my development career you can download my [**resumé**](/assets/vaibhav_upreti_resume.pdf).
 
-
 # OSS contributions
 
 Below you can find the list of my OSS contributions:
