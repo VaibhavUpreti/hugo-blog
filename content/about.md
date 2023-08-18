@@ -22,5 +22,6 @@ At the moment, I am dedicating my time to delving into the inner workings of Rai
 
 # Code Playlist
 {{< spotify type="playlist" id="6YrY9RrXaZkhHxsFMJwj4a" width="100%" height="250" >}}
+
 # Random Tweet
 {{< tweet user="NoContextBrits" id="1609235001303830530" >}}
