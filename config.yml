@@ -6,7 +6,7 @@ licenselink: 'https://github.com/vaibhavupreti'
 description: 'blog website'
 homepage: 'https://vaibhavupreti.me'
 defaultContentLanguage: 'en'
-googleAnalytics: G-1ER2PWSRX3
+googleAnalytics: G-X04HQ743PP
 canonifyURLs: true
 paginate: 10
 menu:
@@ -31,9 +31,9 @@ menu:
     #  weight: 6
 params:
   brand: "🥑"
-  avatarURL: /images/vu.png
+  avatarURL: /images/vaibhav.png
   author: Vaibhav Upreti
-  authorDescription: Oxfords not Brogues!
+  authorDescription: Oxfords not Brogues
   info: Programmer | Developer
   favicon: /images/avo.png
   options:
