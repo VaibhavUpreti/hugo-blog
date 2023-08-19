@@ -15,6 +15,7 @@ Below you can find the list of my OSS contributions:
 - [CircuitVerse](https://github.com/CircuitVerse/CircuitVerse/commits?author=VaibhavUpreti)
 
 At the moment, I am dedicating my time to delving into the inner workings of Rails and focusing on expanding my contributions to the project.
+
 # Socials
 - [LinkedIn](https://www.linkedin.com/in/vaibhav-upreti/) 
 - [GitHub](https://github.com/VaibhavUpreti) 
