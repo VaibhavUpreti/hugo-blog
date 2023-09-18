@@ -3,7 +3,6 @@ title: "📙 About"
 layout: "about"
 ---
 
-I'm currently working with [CircuitVerse](https://circuitverse.org/) this summer as a Google Summer of Code Student Developer. 
 
 # Motivations
 
