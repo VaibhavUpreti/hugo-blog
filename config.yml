@@ -34,7 +34,7 @@ params:
   avatarURL: /images/vaibhav.png
   author: Vaibhav Upreti
   authorDescription: Oxfords not Brogues
-  info: Programmer | Developer
+  info: Core Team, Infra, GSoC'23 @CircuitVerse.org 
   favicon: /images/avo.png
   options:
     showDarkMode: true
