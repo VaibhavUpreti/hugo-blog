@@ -3,6 +3,7 @@ title: "📙 About"
 layout: "about"
 ---
 
+Core Team, Infra, Google Summer of Code'23 [@CircuitVerse.org](https://circuitverse.org/).
 
 # Motivations
 

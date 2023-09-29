@@ -3,7 +3,7 @@ title: "GSoC Week 7"
 date: 2023-07-23
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 ## Passing the Midterm Evaluation 🎉
@@ -47,9 +47,4 @@ Consequently, I decided to update my approach and introduced a new migration to 
 
 Now, with my final exams behind me and a month-long break ahead, I finally have the opportunity to dedicate more time to CircuitVerse. Starting next week, my focus will 
 be solely on creating a container-based deployment workflow for CircuitVerse using GitHub Actions and mrsk.
-
-
-
-
-
 

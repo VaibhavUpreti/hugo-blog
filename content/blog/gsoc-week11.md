@@ -3,7 +3,7 @@ title: "GSoC Week 11"
 date: 2023-08-13
 tags: ["gsoc"]
 series: ["gsoc"]
-featured: true
+featured: false 
 ---
 
 
