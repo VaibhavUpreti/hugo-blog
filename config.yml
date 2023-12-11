@@ -2,7 +2,7 @@ baseURL: 'https://vaibhavupreti.me'
 title: Vaibhav Upreti 
 theme: hugo-theme-ladder
 license: MIT
-licenselink: 'https://github.com/vaibhavupreti'
+licenselink: 'https://github.com/VaibhavUpreti'
 description: 'blog website'
 homepage: 'https://vaibhavupreti.me'
 defaultContentLanguage: 'en'
