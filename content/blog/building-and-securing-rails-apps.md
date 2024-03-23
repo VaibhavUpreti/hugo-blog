@@ -430,6 +430,7 @@ docker run -d -p 3000:3000 --network host \
 blog.vaibhavupreti.me:443 {
 	  file_server
 	  reverse_proxy localhost:3000
+	  tls internal
 }
 
 ```
