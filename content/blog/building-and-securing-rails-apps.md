@@ -226,6 +226,9 @@ config/routes.rb
 root 'home#index'
 ```
 
+### Building a many to many relationship b/w articles and categories
+
+
 `app/models/article.rb`
 
 
