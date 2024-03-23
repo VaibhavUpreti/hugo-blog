@@ -1,11 +1,13 @@
 ---
 title: "Building and Securing Rails apps: Deploying with Docker on EC2, SSL with Cloudflare, and Domain Integration"
-date: 2023-06-04
+date: 2024-03-22
 tags: ["rails"]
 series: ["rails"]
 featured: false
 ---
 
+
+# Building and Securing Rails apps
 
 Create a new rails app
 
@@ -13,7 +15,7 @@ Create a new rails app
 rails new blog_app -d postgresql --skip-test
 ```
 
-Remove windows platform from Gemfile gems.
+Remove windows platform from Gemfile gems. bug rails 7.1
 
 `vim config/environments/production.rb`
 
@@ -103,6 +105,8 @@ EXPOSE 3000
 ```
 
 Github Actions
+
+`.github/workflows/docker-publish.yml`
 
 ```md
 name: Docker publish
@@ -202,9 +206,7 @@ jobs:
 
 Push the changes
 
-
-
-
+## Rails Scaffolding
 Generating Scaffolds
 
 ```ruby
@@ -224,14 +226,7 @@ config/routes.rb
 root 'home#index'
 ```
 
-Declare a variable like and it prints on the controller
-
-Explain models and controllers
-
-
-add relations to models
-
-app/models/article.rb
+`app/models/article.rb`
 
 
 ```bash
@@ -248,6 +243,11 @@ has_many :articles, through: :categorizations, dependent: :destroy
 
 rails console show relations between objects after creating.
 
+Declare a variable like and it prints on the controller
+
+Explain models and controllers, api, 
+
+add relations to models
 
 app/views/home/index.html.erb
 
@@ -255,6 +255,21 @@ app/views/home/index.html.erb
 
 <%= link_to "Articles", articles_path, class: "inline-block"%>
 <%= link_to "Categories", categories_path, class: "inline-block"%>
+```
+
+
+app/views/artciles/form.html.erb
+
+```html
+ <div class="col-sm-8 col-sm-offset-2">
+      <%= form.label :category, "Pick category/categories" %><br />
+      <div class="cat-opt-flex">
+      <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+        <% cb.label(class: "checkbox-inline input_checkbox" ) {cb.check_box(class: "checkbox" ) + cb.text } %>
+          <% end %>
+        </div>
+    </div>
+
 ```
 
 Making it look neat! Customise Views
@@ -270,16 +285,6 @@ bundle add devise
 rails generate devise:install
 rails g devise User
 ```
-
-
-
-
-
-## Attachments in Rails
-
-
-## Some super duper cool feature build it
-
 
 
 
@@ -349,12 +354,19 @@ Update postgres role
 
 sudo -u postgres psql
 
+```sql
 ALTER USER postgres WITH PASSWORD 'postgres';
 ALTER USER postgres WITH SUPERUSER;
+```
 
 
 
-2. 
+2. Allow postgres to listen to docker containers 
+
+```bash
+sudo vim /etc/postgresql/*/main/postgresql.conf
+```
+
 `sudo vim /etc/postgresql/*/main/postgresql.conf`
 
 ```bash
@@ -425,8 +437,6 @@ blog.vaibhavupreti.me:443 {
 `sudo systemctl restart caddy`
 
 
-Add ip to A record in cloudflare.
+Add ip to A record in cloudflare to the domain name.
 
-
-## Security
 
