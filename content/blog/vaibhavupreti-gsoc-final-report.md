@@ -8,3 +8,4 @@ featured: false
 
 ![gsoc-cover](/images/gsoc.png)
 
+https://blog.circuitverse.org/posts/vaibhavupreti-gsoc23-final-report/
