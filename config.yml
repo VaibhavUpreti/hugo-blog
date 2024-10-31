@@ -37,7 +37,7 @@ params:
   info: Core Team, GSoC'23 @CircuitVerse.org 
   favicon: /images/avo.png
   options:
-    showDarkMode: true
+    showDarkMode: false
     enableImgZooming: true
     enableMultiLang: false
   darkModeTheme: data-dark-mode
