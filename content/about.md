@@ -3,7 +3,7 @@ title: "📙 About"
 layout: "about"
 ---
 
-Core Team Member, GSoC Mentor [@CircuitVerse.org](https://circuitverse.org/).
+Software Engineer @NoScrubs, Core Team Member, GSoC Mentor [@CircuitVerse.org](https://circuitverse.org/).
 
 
 # PGP Fingerprint

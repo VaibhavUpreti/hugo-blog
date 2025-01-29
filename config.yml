@@ -3,7 +3,7 @@ title: Vaibhav Upreti
 theme: hugo-theme-ladder
 license: MIT
 licenselink: 'https://github.com/VaibhavUpreti'
-description: 'blog website'
+description: 'Vaibhav Upreti'
 homepage: 'https://vaibhavupreti.me'
 defaultContentLanguage: 'en'
 googleAnalytics: G-X04HQ743PP
@@ -26,6 +26,9 @@ menu:
     - name: Links
       url: /links
       weight: 5
+    # - name: CV
+    #   url: /cv
+    #   weight: 6
     #- name: Discuss
     #  url: /discuss
     #  weight: 6
@@ -34,7 +37,8 @@ params:
   avatarURL: /images/vaibhav.png
   author: Vaibhav Upreti
   authorDescription: 2476 DEBA 5410 BF71 A8DF  0E27 1D5F CB0B 68EA 5B9E
-  info: Core Team, GSoC Mentor, GSoC'23 @CircuitVerse.org 
+  fingerprint: 2476 DEBA 5410 BF71 A8DF  0E27 1D5F CB0B 68EA 5B9E
+  info: Software Engineer @NoScrubs.com, Core Team, GSoC Mentor, GSoC'23 @CircuitVerse.org
   favicon: /images/avo.png
   options:
     showDarkMode: false
