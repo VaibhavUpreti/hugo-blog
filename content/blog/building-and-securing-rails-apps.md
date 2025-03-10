@@ -6,7 +6,6 @@ series: ["rails"]
 featured: false
 ---
 
-
 # Building and Securing Rails apps
 
 Create a new rails app
@@ -19,13 +18,11 @@ Remove windows platform from Gemfile gems. bug rails 7.1
 
 `vim config/environments/production.rb`
 
-set 
+set
 force_ssl to false
 and assume_ssl to true
 
-
 Create the Dockerfile.production
-
 
 ```Dockerfile
 # Use a multi stage build for the builder
@@ -112,29 +109,30 @@ Github Actions
 name: Docker publish
 
 on:
-  schedule:
-    - cron: '26 5 * * *'
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ master ]
-  workflow_call:
+schedule: - cron: '26 5 \* \* \*'
+push:
+branches: [ main ]
+pull_request:
+branches: [ master ]
+workflow_call:
 
 env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+
+# Use docker.io for Docker Hub if empty
+
+REGISTRY: ghcr.io
+
+# github.repository as <account>/<repo>
+
+IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
+build:
+runs-on: ubuntu-latest
+permissions:
+contents: read
+packages: write # This is used to complete the identity challenge # with sigstore/fulcio when running outside of PRs.
+id-token: write
 
     steps:
       - name: Checkout repository with submodules
@@ -201,12 +199,12 @@ jobs:
           platforms: linux/amd64 #, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
 ```
 
 Push the changes
 
 ## Rails Scaffolding
+
 Generating Scaffolds
 
 ```ruby
@@ -216,6 +214,7 @@ rails g scaffold Categorization article:references category:references
 ```
 
 Create index route
+
 ```ruby
 rails g controller home index
 ```
@@ -228,9 +227,7 @@ root 'home#index'
 
 ### Building a many to many relationship b/w articles and categories
 
-
 `app/models/article.rb`
-
 
 ```bash
 has_many :categorizations
@@ -248,7 +245,7 @@ rails console show relations between objects after creating.
 
 Declare a variable like and it prints on the controller
 
-Explain models and controllers, api, 
+Explain models and controllers, api,
 
 add relations to models
 
@@ -260,19 +257,17 @@ app/views/home/index.html.erb
 <%= link_to "Categories", categories_path, class: "inline-block"%>
 ```
 
-
 app/views/artciles/form.html.erb
 
 ```html
- <div class="col-sm-8 col-sm-offset-2">
-      <%= form.label :category, "Pick category/categories" %><br />
-      <div class="cat-opt-flex">
-      <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
-        <% cb.label(class: "checkbox-inline input_checkbox" ) {cb.check_box(class: "checkbox" ) + cb.text } %>
-          <% end %>
-        </div>
-    </div>
-
+<div class="col-sm-8 col-sm-offset-2">
+  <%= form.label :category, "Pick category/categories" %><br />
+  <div class="cat-opt-flex">
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do
+    |cb| %> <% cb.label(class: "checkbox-inline input_checkbox" )
+    {cb.check_box(class: "checkbox" ) + cb.text } %> <% end %>
+  </div>
+</div>
 ```
 
 Making it look neat! Customise Views
@@ -289,16 +284,14 @@ rails generate devise:install
 rails g devise User
 ```
 
-
-
 ## Deployment
-
 
 ### Bootstrap server
 
 1. Spin up a new t2.micro EC2 instance
 
 Bootstrap script
+
 ```bash
 curl -fsSL https://gist.githubusercontent.com/VaibhavUpreti/9a5ea6dce660d6775163c8a6f7ccaa30/raw/2560907d38d409170ae58e00418c13abd3ded942/bootstrap-rails-docker-ec2.sh | bash
 
@@ -311,9 +304,8 @@ curl -fsSL https://gist.githubusercontent.com/VaibhavUpreti/9a5ea6dce660d6775163
 - postgres lib tools
 - Caddy : reverse proxy
 
-
-
 Install docker
+
 ```bash
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -338,6 +330,7 @@ sudo apt install postgresql postgresql-contrib
 ```
 
 Install Caddy
+
 ```bash
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -347,13 +340,12 @@ sudo apt install caddy
 
 ```
 
-
-
 Exit the terminal and ssh again to reload changes.
+
 ### updating postgresql configs
 
 1. Update default role
-Update postgres role
+   Update postgres role
 
 sudo -u postgres psql
 
@@ -362,9 +354,7 @@ ALTER USER postgres WITH PASSWORD 'postgres';
 ALTER USER postgres WITH SUPERUSER;
 ```
 
-
-
-2. Allow postgres to listen to docker containers 
+2. Allow postgres to listen to docker containers
 
 ```bash
 sudo vim /etc/postgresql/*/main/postgresql.conf
@@ -374,16 +364,16 @@ sudo vim /etc/postgresql/*/main/postgresql.conf
 
 ```bash
 # prefer this
-listen_addresses = '*' 
+listen_addresses = '*'
 # or
-listen_addresses = 'localhost, 172.17.0.1' 
+listen_addresses = 'localhost, 172.17.0.1'
 
 ```
-
 
 `sudo vim /etc/postgresql/*/main/pg_hba.conf`
 
 Allow all hosts to login within the postgres cluster
+
 ```bash
 host    all             all              0.0.0.0/0                       scram-sha-256
 host    all             all              ::/0                            scram-sha-256
@@ -396,20 +386,13 @@ Test configuration
 `sudo -i -u postgres`
 `psql -h 172.17.0.1`
 
-
 Docker Login
 
 docker login ghcr.io
 
 enter: username, ghcr access token(password option now deprecated)-find under developer settings in github profile settings tab.
 
-
-
-
-
-
 ### Run the application
-
 
 ```bash
 docker run -d -p 3000:3000 --network host \
@@ -421,7 +404,6 @@ docker run -d -p 3000:3000 --network host \
 
 
 ```
-
 
 ### Setup Caddy
 
@@ -437,10 +419,8 @@ blog.vaibhavupreti.me:443 {
 }
 
 ```
+
 `sudo caddy reload`
 `sudo systemctl restart caddy`
 
-
 Add ip to A record in cloudflare to the domain name.
-
-

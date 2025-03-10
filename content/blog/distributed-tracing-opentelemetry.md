@@ -26,16 +26,14 @@ gem "opentelemetry-exporter-otlp"
 gem "opentelemetry-instrumentation-all"
 ```
 
-Once added  `bundle install`
-
+Once added `bundle install`
 
 ## Configuring the SDK
 
-Here is a sample configuration to get started with configuring the SDK. Initially, I have manually instrumented only 
+Here is a sample configuration to get started with configuring the SDK. Initially, I have manually instrumented only
 the necessary parts. However, this process can also be replaced by using `c.use_all` for simplification.
 
 `config/initializers/opentelemetry.rb`
-
 
 ```ruby
 # frozen_string_literal: true
@@ -77,7 +75,6 @@ export NEW_RELIC_API_KEY=<api-key-here>
 
 `.otel/docker-compose.yaml`
 
-
 ```yaml
 version: "3"
 services:
@@ -98,14 +95,14 @@ services:
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
     ports:
-      - "4318:4318"        
+      - "4318:4318"
 	  - "13133:13133"   # health check
     depends_on:
       - jaeger-all-in-one
 ```
 
-
 New Relic OpenTelemetry best practices:
+
 - [best practices](https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/best-practices/opentelemetry-best-practices-overview/)
 
 ###### Exporting New Relic Api key
@@ -117,7 +114,7 @@ as header in order to be able to send traces to the New Relic endpoint.
 export NEW_RELIC_API_KEY=<api-key-here>
 ```
 
-###### Confirming New Relic Data Center 
+###### Confirming New Relic Data Center
 
 If your data center for New Relic Agent is US then the configuration is same as below. Else you need the otlp endpoint to
 your data Center
@@ -133,9 +130,7 @@ otlp:
 	"api-key": $NEW_RELIC_API_KEY
 ```
 
-
 `.otel/otel-collector-config.yaml`
-
 
 ```yaml
 extensions:
@@ -152,8 +147,8 @@ processors:
     trace_statements:
       - context: span
         statements:
-        - truncate_all(attributes, 4095)
-        - truncate_all(resource.attributes, 4095)
+          - truncate_all(attributes, 4095)
+          - truncate_all(resource.attributes, 4095)
 
 exporters:
   logging:
@@ -174,11 +169,9 @@ service:
       receivers: [otlp]
       processors: [transform, batch]
       exporters: [logging, jaeger, otlp]
-
 ```
 
-
-###### Starting Server 
+###### Starting Server
 
 Following command will start 2 containers:
 
@@ -191,14 +184,12 @@ cd .otel
 docker compose up -d
 ```
 
-
 ###### Results
 
 After starting the containers start your Rails app and make some basic requests and then traces will appear in both Jaeger
 and New Relic.
 
-
-Then Navigate to 
+Then Navigate to
 
 - Jaeger UI dashboard: [http://localhost:16686](http://localhost:16686)
 
@@ -206,11 +197,9 @@ Then Navigate to
 
 in order to see traces.
 
-
 **Jaeger Dashboard:**
 
 ![Jaeger-image](/images/jaeger-dashboard.png)
-
 
 **Jaeger Single Trace**
 
@@ -218,9 +207,6 @@ in order to see traces.
 
 ![jaeger-trace-inspect-deep](/images/jaeger-trace-inspect-deep.png)
 
-
-
 **New Relic Dashboard:**
 
 ![new-relic-otel-dashboard](/images/new-relic-otel-dashboard.png)
-

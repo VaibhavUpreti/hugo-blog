@@ -5,7 +5,9 @@ tags: ["notifications", "circuitverse"]
 series: ["customise notification in rails"]
 featured: false
 ---
-## 🎯 GOAL: 
+
+## 🎯 GOAL:
+
 Customise notification events
 
 With reference to issue [#3395](https://github.com/CircuitVerse/CircuitVerse/issues/3395)
@@ -21,6 +23,7 @@ There were two methods to make this work -
 I found the second approach better and implemented the same. It was most used by rails developers to implement such features.
 
 ## 👤 Implementing the preferences in users model
+
 Setting default notification settings to be true for each user.(which they can edit later)
 
 ```ruby
@@ -39,7 +42,6 @@ These preferences can be checked in each notification event.
 
 - You can use the if: and unless: options on your delivery methods to check the user's preferences and skip processing if they have disabled that type of notification.
 
-
 ```ruby
 class ForkNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications, if: :fork_notifications?
@@ -53,8 +55,6 @@ class ForkNotification < Noticed::Base
   end
 
 ```
-
-
 
 ## 🤹 Handling Updates
 
@@ -70,10 +70,8 @@ All updates are handled by a single patch request which accpets three params
 patch "/:id/notifications/edit", to: "users/noticed_notifications#edit", as: "edit_notifications"
 ```
 
-
-In 
+In
 controllers/users/noticed_notifications_controller.rb
-
 
 ```ruby
 def edit
@@ -88,57 +86,57 @@ The edit method in the controller runs the following service-
 
 Based on the params recieved in the patch request, the specific notification event preferences are updated.
 
- ```ruby
+```ruby
 class NotificationPreference < ApplicationController
-  def initialize(params)
-    super()
-    @recipient = User.find(params[:id])
-    @notific_type = params[:type]
-    @active = params[:active]
-    @count = params[:count]
-  end
+ def initialize(params)
+   super()
+   @recipient = User.find(params[:id])
+   @notific_type = params[:type]
+   @active = params[:active]
+   @count = params[:count]
+ end
 
-  def call
-    if @count == "1"
-      if @notific_type == "star"
-        update_star
-      else
-        update_fork
-      end
-    else
-      update_all
-    end
-  end
+ def call
+   if @count == "1"
+     if @notific_type == "star"
+       update_star
+     else
+       update_fork
+     end
+   else
+     update_all
+   end
+ end
 
-  private
+ private
 
-    def update_fork
-      if @active == "true"
-        @recipient.update!(fork: "false")
-      else
-        @recipient.update!(fork: "true")
-      end
-    end
+   def update_fork
+     if @active == "true"
+       @recipient.update!(fork: "false")
+     else
+       @recipient.update!(fork: "true")
+     end
+   end
 
-    def update_star
-      if @active == "true"
-        @recipient.update!(star: "false")
-      else
-        @recipient.update!(star: "true")
-      end
-    end
+   def update_star
+     if @active == "true"
+       @recipient.update!(star: "false")
+     else
+       @recipient.update!(star: "true")
+     end
+   end
 
-    def update_all
-      if @active == "true"
-        @recipient.update!(star: "false", fork: "false")
-      else
-        @recipient.update!(star: "true", fork: "true")
-      end
-    end
+   def update_all
+     if @active == "true"
+       @recipient.update!(star: "false", fork: "false")
+     else
+       @recipient.update!(star: "true", fork: "true")
+     end
+   end
 end
 ```
 
-Example Route params- 
+Example Route params-
 
 ```ruby
 http://localhost:3000/users/24/notifications/disable_new?type=star
@@ -147,7 +145,8 @@ http://localhost:3000/users/24/notifications/disable_new?type=star&&action=true&
 
 ## 📦 Dealing with Production Database
 
-For Production we would have create a migration to set default preferences of the notification events to "true". 
+For Production we would have create a migration to set default preferences of the notification events to "true".
+
 - For new users, the preferences are set to true on creation.
 
 Creating migrations using `rails-data-migrations` Gem
@@ -166,30 +165,12 @@ class PopulatePreferencesToUsers < ActiveRecord::DataMigration
 end
 ```
 
-After running migration - 
+After running migration -
+
 ```ruby
 rake data:migrate
 ```
 
-
 ![Screenshot 2022-12-17 at 1 19 40 AM](https://user-images.githubusercontent.com/85568177/208177880-e72178ca-6586-4f08-af69-5e4c7d87274b.png)
 
-
 ## 📝 Test Cases
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
