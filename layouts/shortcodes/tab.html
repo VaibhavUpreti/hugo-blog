@@ -1,6 +1,6 @@
-{{ $group := .Page.Scratch.Get "tabGroupIndex" | default 0 }}
-{{ $index := .Page.Scratch.Get "tabElementIndex" | default 0 }}
-{{ $name := .Get "name" | default "Name Me!" }}
+{{ $group := .Page.Scratch.Get "tabGroupIndex" | default 0 }} {{ $index :=
+.Page.Scratch.Get "tabElementIndex" | default 0 }} {{ $name := .Get "name" |
+default "Name Me!" }}
 
 <style>
   .tabs input#tab-{{ $group }}-{{ $index }}:checked ~ .tab-content-{{ $group }}-{{ $index }} {
@@ -8,7 +8,20 @@
   }
 </style>
 
-<input type="radio" class="tab-input" name="tab-select-{{ $group }}" id="tab-{{ $group }}-{{ $index }}" {{ if eq $index 0 }}checked{{ end }}/>
+<input
+  type="radio"
+  class="tab-input"
+  name="tab-select-{{ $group }}"
+  id="tab-{{ $group }}-{{ $index }}"
+  {{
+  if
+  eq
+  $index
+  0
+  }}checked{{
+  end
+  }}
+/>
 <label for="tab-{{ $group }}-{{ $index }}" class="tab-label">{{ $name }}</label>
 <div class="tab-content tab-content-{{ $group }}-{{ $index }}">
   {{ .Inner | markdownify }}

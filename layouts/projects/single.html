@@ -1,0 +1,237 @@
+{{ define "content" }}
+<article class="project-single">
+  <div class="project-header">
+    <div class="project-title">
+      <a
+        href="{{ .Params.link }}"
+        target="_blank"
+        class="title-link"
+        style="display: flex; align-items: center"
+      >
+        <h1>{{ .Title }}</h1>
+        <i
+          class="fa fa-external-link"
+          aria-hidden="true"
+          style="margin-left: 10px"
+        ></i>
+      </a>
+
+      <p class="project-role">{{ .Params.role }}</p>
+      {{ if .Params.startDate }}
+      <p class="project-duration">
+        {{ .Params.startDate }} - {{ if .Params.endDate }}{{ .Params.endDate
+        }}{{ else }}Present{{ end }}
+      </p>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ if .Params.techStack }}
+  <div class="tech-stack-container">
+    {{ range .Params.techStack }}
+    <span class="tech-tag tech-tag-underlined">#{{ . }}</span>
+    {{ end }}
+  </div>
+  {{ end }} {{ if .Params.description }}
+  <blockquote class="project-description">
+    <p>{{ .Params.description }}</p>
+  </blockquote>
+  {{ end }} {{ if or .Params.website .Params.github }}
+  <div class="project-links">
+    {{ if .Params.website }}
+    <a href="{{ .Params.website }}" class="project-link" target="_blank">
+      <i class="fa fa-globe link-icon"></i>
+      <span class="link-text">Website</span>
+      <i class="fa fa-external-link link-external"></i>
+    </a>
+    {{ end }} {{ if .Params.github }}
+    <a href="{{ .Params.github }}" class="project-link github" target="_blank">
+      <i class="fa-brands fa-github link-icon"></i>
+      <span class="link-text">GitHub</span>
+      <i class="fa fa-external-link link-external"></i>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <div class="project-content">{{ .Content }}</div>
+
+  <a href="/projects" class="back-link">
+    <span class="back-icon">←</span>
+    <span>Back to Projects</span>
+  </a>
+</article>
+
+<style>
+  /* Project Single Styles (based on work-single) */
+  .project-single {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: var(--text-primary);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 2rem;
+  }
+
+  .title-link {
+    text-decoration: none;
+  }
+
+  .title-link:hover h1 {
+    text-decoration: underline;
+  }
+
+  .project-title h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .project-role {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem;
+    font-weight: 500;
+  }
+
+  .project-duration {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  .tech-stack-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tech-tag {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .tech-tag-underlined {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: default;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: white;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all var(--transition-speed);
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .project-link .link-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .project-link .link-external {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .project-link:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .project-link.github {
+    background-color: #24292e;
+    color: white;
+  }
+
+  .project-link.github:hover {
+    background-color: #1b1f23;
+  }
+
+  .project-content {
+    margin-bottom: 2.5rem;
+  }
+
+  .project-content a {
+    text-decoration: underline;
+    color: inherit;
+    transition: color var(--transition-speed),
+      text-decoration var(--transition-speed);
+  }
+
+  .project-content a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-speed);
+    padding: 0.5rem 0;
+  }
+
+  .back-link:hover {
+    color: var(--primary-color);
+  }
+
+  .back-icon {
+    margin-right: 0.5rem;
+    transition: transform var(--transition-speed);
+  }
+
+  .back-link:hover .back-icon {
+    transform: translateX(-4px);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .project-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .project-link {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+{{ end }}

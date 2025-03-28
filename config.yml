@@ -1,22 +1,22 @@
-baseURL: 'https://vaibhavupreti.me'
-title: Vaibhav Upreti 
+baseURL: "https://vaibhavupreti.me"
+title: Vaibhav Upreti
 theme: hugo-theme-ladder
 license: MIT
-licenselink: 'https://github.com/VaibhavUpreti'
-description: 'Vaibhav Upreti'
-homepage: 'https://vaibhavupreti.me'
-defaultContentLanguage: 'en'
+licenselink: "https://github.com/VaibhavUpreti"
+description: "Vaibhav Upreti"
+homepage: "https://vaibhavupreti.me"
+defaultContentLanguage: "en"
 googleAnalytics: G-X04HQ743PP
 canonifyURLs: true
 paginate: 10
 menu:
   main:
+    - name: Projects
+      url: /projects
+      weight: 2
     - name: Blog
       url: /blog
-      weight: 2
-    # - name: Tags
-    #   url: /tags
-    #   weight: 3
+      weight: 3
     - name: Archive
       url: /archives
       weight: 4
@@ -26,9 +26,9 @@ menu:
     - name: Links
       url: /links
       weight: 5
-    # - name: CV
-    #   url: /cv
-    #   weight: 6
+    - name: Hire Me
+      url: /hire
+      weight: 6
     #- name: Discuss
     #  url: /discuss
     #  weight: 6
@@ -38,7 +38,7 @@ params:
   author: Vaibhav Upreti
   authorDescription: 2476 DEBA 5410 BF71 A8DF  0E27 1D5F CB0B 68EA 5B9E
   fingerprint: 2476 DEBA 5410 BF71 A8DF  0E27 1D5F CB0B 68EA 5B9E
-  info: Software Engineer @NoScrubs.com, Core Team, GSoC Mentor, GSoC'23 @CircuitVerse.org
+  info: Software Engineer @NoScrubs.com, Core Team Member, GSoC Mentor @CircuitVerse.org
   favicon: /images/avo.png
   options:
     showDarkMode: false
@@ -53,11 +53,11 @@ params:
     - name: GitHub
       pre: >-
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      url: 'https://github.com/VaibhavUpreti'
-    - name: Twitter
-      pre: >-
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg>
-      url: 'https://twitter.com/vaibhav__upreti'
+      url: "https://github.com/VaibhavUpreti"
+    # - name: Twitter
+    #   pre: >-
+    #     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"></path></svg>
+    #   url: "https://twitter.com/vaibhav__upreti"
 languages:
   en:
     languageName: EN

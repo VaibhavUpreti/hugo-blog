@@ -6,8 +6,7 @@
       <article>
         <div class="card">
           <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
-          {{ partial "blog/meta.html" . }}
-          {{ .Summary }}
+          {{ partial "blog/meta.html" . }} {{ .Summary }}
         </div>
       </article>
       {{ end -}}
@@ -15,10 +14,13 @@
     {{ if gt .Paginator.TotalPages 1 }}
     <div class="paginator">
       {{ if .Paginator.HasPrev }}
-      <a class="prev" href="{{ .Paginator.Prev.URL }}">&larr;&nbsp;&nbsp;Pre Page</a>
-      {{ end }}
-      {{ if .Paginator.HasNext }}
-      <a class="next" href="{{ .Paginator.Next.URL }}">Next Page&nbsp;&nbsp;&rarr;</a>
+      <a class="prev" href="{{ .Paginator.Prev.URL }}"
+        >&larr;&nbsp;&nbsp;Pre Page</a
+      >
+      {{ end }} {{ if .Paginator.HasNext }}
+      <a class="next" href="{{ .Paginator.Next.URL }}"
+        >Next Page&nbsp;&nbsp;&rarr;</a
+      >
       {{ end }}
     </div>
     {{ end }}

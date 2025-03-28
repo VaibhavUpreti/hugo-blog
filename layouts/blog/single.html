@@ -6,9 +6,7 @@
 
   {{ partial "blog/meta.html" . }}
 
-  <div class="blog-toc">
-    {{ partial "blog/toc.html" . }}
-  </div>
+  <div class="blog-toc">{{ partial "blog/toc.html" . }}</div>
 
   <section class="blog-content">{{ .Content }}</section>
 
@@ -16,17 +14,17 @@
   {{ if and (gt (len $pages) 1) (in $pages . ) }}
   <div class="paginator">
     {{ with $pages.Next . }}
-    <a class="prev" href="{{ .Permalink }}"><span>&larr;&nbsp;&nbsp;</span><span>{{ .Name }}</span></a>
-    {{ end }}
-    {{ with $pages.Prev . }}
-    <a class="next" href="{{ .Permalink }}"><span>{{ .Name }}</span><span>&nbsp;&nbsp;&rarr;</span></a>
+    <a class="prev" href="{{ .Permalink }}"
+      ><span>&larr;&nbsp;&nbsp;</span><span>{{ .Name }}</span></a
+    >
+    {{ end }} {{ with $pages.Prev . }}
+    <a class="next" href="{{ .Permalink }}"
+      ><span>{{ .Name }}</span><span>&nbsp;&nbsp;&rarr;</span></a
+    >
     {{ end }}
   </div>
-  {{ end }}
-
-  {{ partial "blog/series.html" . }}
-  {{ partial "common/utteranc.html" . }}
-  {{ partial "common/giscus.html" . }}
+  {{ end }} {{ partial "blog/series.html" . }} {{ partial "common/utteranc.html"
+  . }} {{ partial "common/giscus.html" . }}
 </article>
 
 {{ end }}
